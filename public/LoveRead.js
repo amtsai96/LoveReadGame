@@ -171,6 +171,7 @@ $(document).ready(()=>{ // jQuery main
                     stage.removeChild(girl);
                     playerName = textField.placeHolder.toString();
                     otherName = textFieldOther.placeHolder.toString();
+                    console.log(otherName);
                     stage.removeChild(textField);
                     stage.removeChild(textFieldOther);
                     win();
@@ -184,6 +185,7 @@ $(document).ready(()=>{ // jQuery main
             background.play();
 
             if (scene === 0) {
+                console.log(otherName);
                 let otherNameText = new createjs.Text(otherName, "30px AbrahamLincoln", "black");
                 otherNameText.set({x: 250, y: 200});
                 stage.addChild(otherNameText);
@@ -1288,6 +1290,9 @@ $(document).ready(()=>{ // jQuery main
         return (ax+aw > bx && ax < bx + bw  && ay+ah > by && ay < by + bh);
     }
     function win() {
+        let rect = new createjs.Shape();
+        rect.graphics.beginFill("white").drawRect(0, 0, 720, 720);
+        stage.addChild(rect);
         level++;
         scene = 0;
         draw();
