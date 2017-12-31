@@ -1,0 +1,7 @@
+/node_modules/
+/bin/
+/routes/
+/views/
+
+/app.js
+/package-lock.json
