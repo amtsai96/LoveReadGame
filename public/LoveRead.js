@@ -130,7 +130,6 @@ $(document).ready(()=>{ // jQuery main
                     draw();
                 });
 
-
             } else if (scene === 2) {
                 // enter name
                 let textField = new TextInput();
@@ -180,6 +179,7 @@ $(document).ready(()=>{ // jQuery main
             }
 
         }else if(level === 1) {
+            let winTime = 3000;
             let background = repo.getResult('background');
             let heartbeat = repo.getResult('heartbeat');
             background.play();
@@ -659,8 +659,9 @@ $(document).ready(()=>{ // jQuery main
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -673,8 +674,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             }
                         });
 
@@ -792,8 +794,9 @@ $(document).ready(()=>{ // jQuery main
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -806,8 +809,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             }
                         });
                 });
@@ -924,8 +928,9 @@ $(document).ready(()=>{ // jQuery main
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -938,8 +943,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             }
                         });
                 });
@@ -1056,8 +1062,9 @@ $(document).ready(()=>{ // jQuery main
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1070,8 +1077,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
+                                    background.pause();
                                     win();
-                                }, 1000);
+                                }, winTime);
                             }
                         });
                 });
@@ -1098,6 +1106,11 @@ $(document).ready(()=>{ // jQuery main
         }else if(level === 2) {
             win();
         }else if(level === 3) {
+            let carRoad = repo.getResult('carRoad');
+            let clapping = repo.getResult('clapping');
+            let crow = repo.getResult('crow');
+            carRoad.play();
+
             let flag = 1;
             //動作宣告
             let people = [
@@ -1137,21 +1150,14 @@ $(document).ready(()=>{ // jQuery main
                 new createjs.Bitmap(repo.getResult('car7'))];
 
             let carsWidthLength = [[57, 30], [58, 28], [58, 60], [57, 32], [54, 38], [56, 38], [57, 30]];
+            cars[0].set({x: -100, y: 170});
+            cars[1].set({x: 750, y: 350});
+            cars[2].set({x: 750, y: 270});
+            cars[3].set({x: 750, y: 400});
+            cars[4].set({x: 750, y: 500});
+            cars[5].set({x: -200, y: 220});
+            cars[6].set({x: -100, y: 450});
 
-            cars[0].x = -100;
-            cars[0].y = 170;
-            cars[1].x = 750;
-            cars[1].y = 350;
-            cars[2].x = 750;
-            cars[2].y = 270;
-            cars[3].x = 750;
-            cars[3].y = 400;
-            cars[4].x = 750;
-            cars[4].y = 500;
-            cars[5].x = -200;
-            cars[5].y = 220;
-            cars[6].x = -100;
-            cars[6].y = 450;
             createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
             createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
             createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
@@ -1194,7 +1200,7 @@ $(document).ready(()=>{ // jQuery main
                             people[i].y += 10;
                             if (people[i].y >= 550) {
                                 // Win
-                                car_road.pause();
+                                carRoad.pause();
                                 clapping.play();
                                 flag = 3;
                             }
@@ -1251,6 +1257,7 @@ $(document).ready(()=>{ // jQuery main
                     }, 1000);
 
                     win();
+
                 }
             }, 1000);
 
@@ -1283,6 +1290,7 @@ $(document).ready(()=>{ // jQuery main
             stage.update();
         }else{
             //level 4
+
         }
     }
 
