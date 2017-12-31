@@ -173,9 +173,7 @@ $(document).ready(()=>{ // jQuery main
                     otherName = textFieldOther.placeHolder.toString();
                     stage.removeChild(textField);
                     stage.removeChild(textFieldOther);
-                    level++;
-                    scene = 0;
-                    draw();
+                    win();
 
                 });
             }
@@ -192,27 +190,27 @@ $(document).ready(()=>{ // jQuery main
 
                 let stage1Text = new createjs.Bitmap(repo.getResult('stage1Text'));
                 stage1Text.set({scaleX: 1.44, scaleY: 1.44});
-                stage1Text.set({x: 121.6, y: 273.6});
+                stage1Text.set({x: 250, y: 200});
                 stage.addChild(stage1Text);
                 setTimeout(function () {
                     stage.removeChild(stage1Text);
                     stage.removeChild(otherNameText);
                     scene++;
                     draw();
-                }, 4000);
+                }, 3500);
             } else if (scene === 1) {
                 let text = new createjs.Text("請選擇一封", "30px AbrahamLincoln", "black");
-                text.set({x: 270, y: 200});
+                text.set({x: 345, y: 200});
                 stage.addChild(text);
 
                 let letter = new createjs.Bitmap(repo.getResult('letter'));
                 letter.set({scaleX: 3, scaleY: 3});
-                letter.set({x: 100, y: 300});
+                letter.set({x: 200, y: 300});
                 stage.addChild(letter);
 
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
                 letter1.set({scaleX: 3, scaleY: 3});
-                letter1.set({x: 400, y: 300});
+                letter1.set({x: 520, y: 300});
                 stage.addChild(letter1);
 
                 letter.on('click', e => {
@@ -671,6 +669,7 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                             }
                         });
+
                 });
 
                 letter2.on('click', e => {
@@ -1071,8 +1070,8 @@ $(document).ready(()=>{ // jQuery main
                 });
             }
         }else if(level === 2) {
+            win();
         }else if(level === 3) {
-
             let flag = 1;
             //動作宣告
             let people = [
@@ -1082,12 +1081,12 @@ $(document).ready(()=>{ // jQuery main
                 new createjs.Bitmap(repo.getResult('walking2')),
                 new createjs.Bitmap(repo.getResult('win1')),
                 new createjs.Bitmap(repo.getResult('win2'))];
-            for (var i = 0; i < 6; i++) {
+            for (let i = 0; i < 6; i++) {
                 people[i].set({x: 360, y: 50});
             }
 
-            var shape = new createjs.Shape();
-            var graphics = shape.graphics;
+            let shape = new createjs.Shape();
+            let graphics = shape.graphics;
             //馬路邊界一
             graphics.beginStroke("black");
             graphics.setStrokeStyle(5);
@@ -1225,8 +1224,7 @@ $(document).ready(()=>{ // jQuery main
                         stage.removeChild(people[5]);
                     }, 1000);
 
-                    level++;
-                    scene = 0;
+                    win();
                 }
             }, 1000);
 
@@ -1258,12 +1256,17 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(shape);
             stage.update();
         }else{
-
+            //level 4
         }
     }
 
     function isHit(ax,ay, aw,ah, bx,by, bw,bh) {
         return (ax+aw > bx && ax < bx + bw  && ay+ah > by && ay < by + bh);
+    }
+    function win() {
+        level++;
+        scene = 0;
+        draw();
     }
 
     setup();
