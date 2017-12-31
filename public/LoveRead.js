@@ -656,6 +656,9 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(heart);
                                 }
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -667,6 +670,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.removeChild(startGirl);
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             }
                         });
 
@@ -783,6 +789,9 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(heart);
                                 }
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -794,6 +803,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.removeChild(startGirl);
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             }
                         });
                 });
@@ -909,6 +921,9 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(heart);
                                 }
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -920,6 +935,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.removeChild(startGirl);
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             }
                         });
                 });
@@ -1022,7 +1040,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
                                     stage.addChild(heart1);
-                                    heartbeat.pause();
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1035,6 +1052,10 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(nothingGirl);
                                     stage.removeChild(heart);
                                 }
+                                heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1046,6 +1067,9 @@ $(document).ready(()=>{ // jQuery main
                                 stage.removeChild(startGirl);
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
+                                setTimeout(function(){
+                                    win();
+                                }, 1000);
                             }
                         });
                 });
