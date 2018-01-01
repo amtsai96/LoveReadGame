@@ -2,7 +2,7 @@ $(document).ready(()=>{ // jQuery main
 
     const stage = new createjs.Stage(canvas);
     const repo = new createjs.LoadQueue();
-    let level = 3;
+    let level = 0;
     let scene = 0;
 
     function setup() {
@@ -29,7 +29,7 @@ $(document).ready(()=>{ // jQuery main
             {id:'nothingGirl',src:'Stage1/images/gfLetter3.png'},
             {id:'letter',src:'Stage1/images/letter.png'},
             {id:'stage1',src:'Stage1/images/stage1.png'},
-            {id:'stage1Text',src:'Stage1/images/stage1_text.png'},
+            {id:'stage1Text',src:'Stage1/images/stage1_text_.png'},
 
             {id:'heartText',src:'Stage1/images/heart_text.png'},
             {id:'heart',src:'Stage1/images/heart1.png'},
@@ -70,8 +70,8 @@ $(document).ready(()=>{ // jQuery main
 
     function draw(){
 
-        let playerName = '';
-        let otherName = '';
+        // var playerName;
+        // var otherName;
 
         if(level === 0) {
             if (scene === 0) {
@@ -128,24 +128,13 @@ $(document).ready(()=>{ // jQuery main
 
             } else if (scene === 2) {
                 // enter name
-                let textField = new TextInput();
-                textField.set({x: 265, y: 155});
-                textField.placeHolder = "George"; // updates the default text
-                stage.addChild(textField);
-                textField.update();
-
-                let textFieldOther = new TextInput();
-                textFieldOther.set({x: 265, y: 345});
-                textFieldOther.placeHolder = "Mary"; // updates the default text
-                stage.addChild(textFieldOther);
-                textFieldOther.update();
 
                 let boy = new createjs.Bitmap(repo.getResult('boy'));
-                boy.set({x: 100, y: 75});
+                boy.set({x: 100, y: 60});
                 stage.addChild(boy);
 
                 let girl = new createjs.Bitmap(repo.getResult('girl'));
-                girl.set({x: 100, y: 275});
+                girl.set({x: 100, y: 265});
                 stage.addChild(girl);
 
                 let enter = new createjs.Bitmap(repo.getResult('enter'));
@@ -158,17 +147,24 @@ $(document).ready(()=>{ // jQuery main
                 start.set({x: 520, y: 450});
                 stage.addChild(start);
 
+                var plName_ = $('<input type="text" value="George" id="plInput">').appendTo(document.body)[0];
+                var plName = new createjs.DOMElement(plName_);
+                plName.set({x:-390,y:160});
+                stage.addChild(plName);
+
+                var otName_ = $('<input type="text" value="Mary" id="otInput">').appendTo(document.body)[0];
+                var otName = new createjs.DOMElement(otName_);
+                otName.set({x:-390,y:355});
+                stage.addChild(otName);
 
                 start.on('click', e => {
-                    stage.removeChild(enter);
-                    stage.removeChild(start);
-                    stage.removeChild(boy);
-                    stage.removeChild(girl);
-                    playerName = textField.placeHolder.toString();
-                    otherName = textFieldOther.placeHolder.toString();
-                    console.log(otherName);
-                    stage.removeChild(textField);
-                    stage.removeChild(textFieldOther);
+                    let player = document.getElementById('plInput');
+                    window.playerName = player.value;
+                    let other = document.getElementById('otInput');
+                    window.otherName = other.value;
+                    alert('你的姓名是: '+playerName+'\n對方的姓名是: '+otherName);
+                    plName_.remove();
+                    otName_.remove();
                     win();
 
                 });
@@ -185,18 +181,29 @@ $(document).ready(()=>{ // jQuery main
             background.play();
 
             if (scene === 0) {
-                console.log(otherName);
-                let otherNameText = new createjs.Text(otherName, "30px AbrahamLincoln", "black");
-                otherNameText.set({x: 250, y: 200});
+                // alert(otherName);
+                let textSize = 27;
+                for (var i = 0;i < 7;i++) {
+                    if (otherName.length - i > 5) {
+                        textSize -= 3;
+                    }
+                }
+                let otherNameText = new createjs.Text(otherName, textSize+"px AbrahamLincoln", "black");
+                otherNameText.set({x: 373, y: 210});
                 stage.addChild(otherNameText);
 
+                let otherNameText2 = new createjs.Text(otherName, textSize+"px AbrahamLincoln", "black");
+                otherNameText2.set({x: 453, y: 355});
+                stage.addChild(otherNameText2);
+
                 let stage1Text = new createjs.Bitmap(repo.getResult('stage1Text'));
-                // stage1Text.set({scaleX: 1.44, scaleY: 1.44});
-                stage1Text.set({x: 300, y: 250});
+                stage1Text.set({scaleX: 1.44, scaleY: 1.44});
+                stage1Text.set({x: 240, y: 200});
                 stage.addChild(stage1Text);
                 setTimeout(function () {
                     stage.removeChild(stage1Text);
                     stage.removeChild(otherNameText);
+                    stage.removeChild(otherNameText2);
                     scene++;
                     draw();
                 }, 3500);
@@ -206,12 +213,12 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(text);
 
                 let letter = new createjs.Bitmap(repo.getResult('letter'));
-                letter.set({scaleX: 3, scaleY: 3});
+                letter.set({scaleX: 2.2, scaleY: 2.2});
                 letter.set({x: 200, y: 300});
                 stage.addChild(letter);
 
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
-                letter1.set({scaleX: 3, scaleY: 3});
+                letter1.set({scaleX: 2.2, scaleY: 2.2});
                 letter1.set({x: 520, y: 300});
                 stage.addChild(letter1);
 
@@ -1172,23 +1179,23 @@ $(document).ready(()=>{ // jQuery main
                 flag = 2;
                 switch (e.keyCode) {
                     // Used for Debugging
-                    // case 0:
-                    // case 32:
-                    //     if(stopFlag) {
-                    //         //cars stop
-                    //         for (var i = 0;i < 6;i++){
-                    //             createjs.Tween.get(cars[i], {loop: false}).to({x: cars[i].x, y: cars[i].y});
-                    //         }
-                    //     }
-                    //     else{
-                    //         createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
-                    //         createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
-                    //         createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
-                    //         createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
-                    //         createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
-                    //         createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
-                    //         createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
-                    //     }
+                    case 0:
+                    case 32:
+                        if(stopFlag) {
+                            //cars stop
+                            for (var i = 0;i < 6;i++){
+                                createjs.Tween.get(cars[i], {loop: false}).to({x: cars[i].x, y: cars[i].y});
+                            }
+                        }
+                        else{
+                            createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
+                            createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
+                            createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
+                            createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
+                            createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
+                            createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
+                            createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
+                        }
 
                     case 37:
                         for (var i = 0; i < 6; i++) {

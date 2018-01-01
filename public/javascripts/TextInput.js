@@ -40,6 +40,7 @@ class TextInput extends createjs.Container {
     return '20px Arial';
   }
 
+
   _setupDomNode() {
     this._hiddenInput = document.createElement('input');
     this._hiddenInput.type = 'text';
