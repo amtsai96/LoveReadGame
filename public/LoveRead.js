@@ -5,15 +5,6 @@ $(document).ready(()=>{ // jQuery main
     let level = 0;
     let scene = 0;
 
-    //Stage 1
-    let lineY = 0;
-    let rand;
-    let letterQuality;
-
-    //Stage 3
-
-
-
     function setup() {
         // automatically update
         createjs.Ticker.on("tick", e => stage.update());
@@ -64,9 +55,17 @@ $(document).ready(()=>{ // jQuery main
             {id:'win2',src:"Stage3/images/win2.PNG"},
             {id:'carRoad',src:"Stage3/sound/car_road3.mp3"},
             {id:'clapping',src:"Stage3/sound/clapping_short.mp3"},
-            {id:'crow',src:"Stage3/sound/crow1.mp3"}
-            // Stage 4
+            {id:'crow',src:"Stage3/sound/crow1.mp3"},
 
+            // Stage 4
+            {id:'stage4',src:'Stage4/images/stage4.png'},
+            {id:'stage4_button1',src:'Stage4/images/stage4_button1.png'},
+            {id:'stage4_button2',src:'Stage4/images/stage4_button2.png'},
+            {id:'stage4_button3',src:'Stage4/images/stage4_button3.png'},
+            {id:'stage4_text',src:'Stage4/images/stage4_text.png'},
+            {id:'fire',src:'Stage4/video/fire.mp4'},
+            {id:'home',src:'Stage4/video/home.mp4'},
+            {id:'sea',src:'Stage4/video/sea.mp4'}
 
         ]);
         repo.on('complete', draw);
@@ -179,7 +178,11 @@ $(document).ready(()=>{ // jQuery main
             }
 
         }else if(level === 1) {
-            let winTime = 3000;
+            let lineY = 0;
+            let rand;
+            let letterQuality;
+
+            let winTime = 3500;
             let background = repo.getResult('background');
             let heartbeat = repo.getResult('heartbeat');
             background.play();
@@ -191,8 +194,8 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(otherNameText);
 
                 let stage1Text = new createjs.Bitmap(repo.getResult('stage1Text'));
-                stage1Text.set({scaleX: 1.44, scaleY: 1.44});
-                stage1Text.set({x: 250, y: 200});
+                // stage1Text.set({scaleX: 1.44, scaleY: 1.44});
+                stage1Text.set({x: 300, y: 250});
                 stage.addChild(stage1Text);
                 setTimeout(function () {
                     stage.removeChild(stage1Text);
@@ -1257,7 +1260,7 @@ $(document).ready(()=>{ // jQuery main
                     }, 1000);
 
                     win();
-
+                    flag = 4;
                 }
             }, 1000);
 
@@ -1288,8 +1291,81 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(cars[0], cars[1], cars[2], cars[3], cars[4], cars[5], cars[6]);
             stage.addChild(shape);
             stage.update();
-        }else{
+
+        }else if(level === 4){
             //level 4
+            let stage4 = new createjs.Bitmap(repo.getResult('stage4'));
+            let stage4_text = new createjs.Bitmap(repo.getResult('stage4_text'));
+            stage4_text.set({x: 150, y: 120});
+            let stage4_button1 = new createjs.Bitmap(repo.getResult('stage4_button1'));
+            stage4_button1.set({x: 100, y: 400});
+            let stage4_button2 = new createjs.Bitmap(repo.getResult('stage4_button2'));
+            stage4_button2.set({x: 250, y: 400});
+            let stage4_button3 = new createjs.Bitmap(repo.getResult('stage4_button3'));
+            stage4_button3.set({x: 400, y: 400});
+
+            // let fire= new createjs.Bitmap(repo.getResult('fire'));
+            // let home= new createjs.Bitmap(repo.getResult('home'));
+            // let sea= new createjs.Bitmap(repo.getResult('sea'));
+            // let fire = new createjs.DOMElement(document.getElementById("fire"));
+            // var fire___= $('<video><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+            // var fireVideo = new createjs.DOMElement(videoDom);
+
+
+            stage4_button1.on('click',e =>{
+                // location.assign('http://localhost:3000/Stage4/stage4_fire/');
+                stage.removeChild(stage4_button3);
+                stage.removeChild(stage4_button2);
+                stage.removeChild(stage4_button1);
+                stage.removeChild(stage4_text);
+                var fire_= $('<video autoplay><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+                var fire = new createjs.DOMElement(fire_);
+                fire.set({x:-720,y:-50});
+                stage.addChild(fire);
+                setTimeout(function(){
+                    win();
+                }, 22000);
+
+            });
+            stage4_button2.on('click',e =>{
+                // location.assign('http://localhost:3000/Stage4/stage4_sea/');
+                stage.removeChild(stage4_button3);
+                stage.removeChild(stage4_button2);
+                stage.removeChild(stage4_button1);
+                stage.removeChild(stage4_text);
+                var sea_= $('<video autoplay><source src="Stage4/video/sea.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+                var sea = new createjs.DOMElement(sea_);
+                sea.set({x:-720,y:-50});
+                stage.addChild(sea);
+                setTimeout(function(){
+                    win();
+                }, 29000);
+
+            });
+            stage4_button3.on('click',e =>{
+                // location.assign('http://localhost:3000/Stage4/stage4_home/');
+                stage.removeChild(stage4_button3);
+                stage.removeChild(stage4_button2);
+                stage.removeChild(stage4_button1);
+                stage.removeChild(stage4_text);
+                var home_= $('<video autoplay><source src="Stage4/video/home.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+                var home = new createjs.DOMElement(home_);
+                home.set({x:-660,y:-50});
+                stage.addChild(home);
+                setTimeout(function(){
+                    win();
+                }, 29000);
+
+            });
+
+            stage.addChild(stage4);
+            stage.addChild(stage4_button3);
+            stage.addChild(stage4_button2);
+            stage.addChild(stage4_button1);
+            stage.addChild(stage4_text);
+
+        }else{
+            //end
 
         }
     }
@@ -1298,9 +1374,11 @@ $(document).ready(()=>{ // jQuery main
         return (ax+aw > bx && ax < bx + bw  && ay+ah > by && ay < by + bh);
     }
     function win() {
-        let rect = new createjs.Shape();
-        rect.graphics.beginFill("white").drawRect(0, 0, 720, 720);
-        stage.addChild(rect);
+        // let rect = new createjs.Shape();
+        // rect.graphics.beginFill("white").drawRect(0, 0, 720, 720);
+        // stage.addChild(rect);
+        stage.removeAllChildren();
+        stage.update();
         level++;
         scene = 0;
         draw();
