@@ -2,7 +2,7 @@ $(document).ready(()=>{ // jQuery main
 
     const stage = new createjs.Stage(canvas);
     const repo = new createjs.LoadQueue();
-    let level = 0;
+    let level = 3;
     let scene = 0;
 
     function setup() {
@@ -62,10 +62,7 @@ $(document).ready(()=>{ // jQuery main
             {id:'stage4_button1',src:'Stage4/images/stage4_button1.png'},
             {id:'stage4_button2',src:'Stage4/images/stage4_button2.png'},
             {id:'stage4_button3',src:'Stage4/images/stage4_button3.png'},
-            {id:'stage4_text',src:'Stage4/images/stage4_text.png'},
-            {id:'fire',src:'Stage4/video/fire.mp4'},
-            {id:'home',src:'Stage4/video/home.mp4'},
-            {id:'sea',src:'Stage4/video/sea.mp4'}
+            {id:'stage4_text',src:'Stage4/images/stage4_text.png'}
 
         ]);
         repo.on('complete', draw);
@@ -1169,11 +1166,30 @@ $(document).ready(()=>{ // jQuery main
             createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
             createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
 
-
+            let stopFlag = false;
             //控制上下左右
             window.addEventListener('keydown', function (e) {
                 flag = 2;
                 switch (e.keyCode) {
+                    // Used for Debugging
+                    // case 0:
+                    // case 32:
+                    //     if(stopFlag) {
+                    //         //cars stop
+                    //         for (var i = 0;i < 6;i++){
+                    //             createjs.Tween.get(cars[i], {loop: false}).to({x: cars[i].x, y: cars[i].y});
+                    //         }
+                    //     }
+                    //     else{
+                    //         createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
+                    //         createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
+                    //         createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
+                    //         createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
+                    //         createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
+                    //         createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
+                    //         createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
+                    //     }
+
                     case 37:
                         for (var i = 0; i < 6; i++) {
                             people[i].x -= 10;
@@ -1258,9 +1274,12 @@ $(document).ready(()=>{ // jQuery main
                     window.setTimeout(function () {
                         stage.removeChild(people[5]);
                     }, 1000);
-
+                    window.setTimeout(function () {
+                        flag = 4;
+                    }, 1000);
+                }
+                if (flag === 4){
                     win();
-                    flag = 4;
                 }
             }, 1000);
 
@@ -1304,13 +1323,6 @@ $(document).ready(()=>{ // jQuery main
             let stage4_button3 = new createjs.Bitmap(repo.getResult('stage4_button3'));
             stage4_button3.set({x: 400, y: 400});
 
-            // let fire= new createjs.Bitmap(repo.getResult('fire'));
-            // let home= new createjs.Bitmap(repo.getResult('home'));
-            // let sea= new createjs.Bitmap(repo.getResult('sea'));
-            // let fire = new createjs.DOMElement(document.getElementById("fire"));
-            // var fire___= $('<video><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
-            // var fireVideo = new createjs.DOMElement(videoDom);
-
 
             stage4_button1.on('click',e =>{
                 // location.assign('http://localhost:3000/Stage4/stage4_fire/');
@@ -1320,7 +1332,7 @@ $(document).ready(()=>{ // jQuery main
                 stage.removeChild(stage4_text);
                 var fire_= $('<video autoplay><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var fire = new createjs.DOMElement(fire_);
-                fire.set({x:-720,y:-50});
+                fire.set({x:-720,y:-30});
                 stage.addChild(fire);
                 setTimeout(function(){
                     win();
@@ -1335,7 +1347,7 @@ $(document).ready(()=>{ // jQuery main
                 stage.removeChild(stage4_text);
                 var sea_= $('<video autoplay><source src="Stage4/video/sea.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var sea = new createjs.DOMElement(sea_);
-                sea.set({x:-720,y:-50});
+                sea.set({x:-720,y:-30});
                 stage.addChild(sea);
                 setTimeout(function(){
                     win();
@@ -1350,7 +1362,7 @@ $(document).ready(()=>{ // jQuery main
                 stage.removeChild(stage4_text);
                 var home_= $('<video autoplay><source src="Stage4/video/home.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var home = new createjs.DOMElement(home_);
-                home.set({x:-660,y:-50});
+                home.set({x:-720,y:-30});
                 stage.addChild(home);
                 setTimeout(function(){
                     win();
