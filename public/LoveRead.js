@@ -1513,14 +1513,23 @@ $(document).ready(()=>{ // jQuery main
             stage4_button2.set({x: 250, y: 400});
             let stage4_button3 = new createjs.Bitmap(repo.getResult('stage4_button3'));
             stage4_button3.set({x: 400, y: 400});
+            let heartText = new createjs.Bitmap(repo.getResult('heartText'));	
+            heartText.set({scaleX: 1.44, scaleY: 1.44});
+            heartText.set({x: 288, y: 14.4});
+            let heart1 = new createjs.Bitmap(repo.getResult('heart'));	
+            heart1.set({scaleX: 1.44, scaleY: 1.44});
+            heart1.set({x: 485, y: 31.68});
 
 
             stage4_button1.on('click',e =>{
                 // location.assign('http://localhost:3000/Stage4/stage4_fire/');
+                
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
                 stage.removeChild(stage4_text);
+                stage.addChild(heartText);
+                stage.addChild(heart1);
                 var fire_= $('<video autoplay><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var fire = new createjs.DOMElement(fire_);
                 fire.set({x:-720,y:-30});
@@ -1528,7 +1537,7 @@ $(document).ready(()=>{ // jQuery main
                 setTimeout(function(){
                     win();
                 }, 22000);
-
+                
             });
             stage4_button2.on('click',e =>{
                 // location.assign('http://localhost:3000/Stage4/stage4_sea/');
@@ -1536,6 +1545,8 @@ $(document).ready(()=>{ // jQuery main
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
                 stage.removeChild(stage4_text);
+                stage.addChild(heartText);
+                stage.addChild(heart1);
                 var sea_= $('<video autoplay><source src="Stage4/video/sea.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var sea = new createjs.DOMElement(sea_);
                 sea.set({x:-720,y:-30});
@@ -1543,7 +1554,7 @@ $(document).ready(()=>{ // jQuery main
                 setTimeout(function(){
                     win();
                 }, 29000);
-
+                
             });
             stage4_button3.on('click',e =>{
                 // location.assign('http://localhost:3000/Stage4/stage4_home/');
@@ -1551,6 +1562,8 @@ $(document).ready(()=>{ // jQuery main
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
                 stage.removeChild(stage4_text);
+                stage.addChild(heartText);
+                stage.addChild(heart1);
                 var home_= $('<video autoplay><source src="Stage4/video/home.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var home = new createjs.DOMElement(home_);
                 home.set({x:-720,y:-30});
@@ -1558,7 +1571,7 @@ $(document).ready(()=>{ // jQuery main
                 setTimeout(function(){
                     win();
                 }, 29000);
-
+               
             });
 
             stage.addChild(stage4);
@@ -1566,6 +1579,8 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(stage4_button2);
             stage.addChild(stage4_button1);
             stage.addChild(stage4_text);
+            
+
 
         }else{
             //end
