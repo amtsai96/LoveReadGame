@@ -183,17 +183,21 @@ $(document).ready(()=>{ // jQuery main
             if (scene === 0) {
                 // alert(otherName);
                 let textSize = 27;
+                let offsetX = 48;
+                let offsetY = 0;
                 for (var i = 0;i < 7;i++) {
                     if (otherName.length - i > 5) {
-                        textSize -= 3;
+                        offsetX -= 5.6;
+                        textSize -= 1.3;
+                        offsetY += 0.8;
                     }
                 }
                 let otherNameText = new createjs.Text(otherName, textSize+"px AbrahamLincoln", "black");
-                otherNameText.set({x: 373, y: 210});
+                otherNameText.set({x: 371+offsetX, y: 213+offsetY});
                 stage.addChild(otherNameText);
 
                 let otherNameText2 = new createjs.Text(otherName, textSize+"px AbrahamLincoln", "black");
-                otherNameText2.set({x: 453, y: 355});
+                otherNameText2.set({x: 453+offsetX, y: 358+offsetY});
                 stage.addChild(otherNameText2);
 
                 let stage1Text = new createjs.Bitmap(repo.getResult('stage1Text'));
