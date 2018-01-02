@@ -2,6 +2,7 @@
 /bin/
 /routes/
 /views/
+/.idea/
 
 /app.js
 /package-lock.json
