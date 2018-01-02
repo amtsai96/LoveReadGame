@@ -4,7 +4,7 @@ $(document).ready(()=>{ // jQuery main
     const repo = new createjs.LoadQueue();
     let level = 0;
     let scene = 0;
-
+    let stage3flag = 0;
     function setup() {
         // automatically update
         createjs.Ticker.on("tick", e => stage.update());
@@ -61,6 +61,8 @@ $(document).ready(()=>{ // jQuery main
             {id:'burp_sound', src:'Stage2/sound/burp1.mp3'},
 
             // Stage 3
+            {id:'stage3',src:'Stage3/images/stage3.png'},
+            {id:'stage3_text',src:'Stage3/images/stage3_text.png'},
             {id:'blood',src:"Stage3/images/blood.png"},
             {id:'car1',src:"Stage3/images/car1.PNG"},
             {id:'car2',src:"Stage3/images/car2.PNG"},
@@ -1297,212 +1299,238 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(s2_text);
 
         }else if(level === 3) {
+            stage.removeAllChildren();
             let carRoad = repo.getResult('carRoad');
             let clapping = repo.getResult('clapping');
             let crow = repo.getResult('crow');
-            carRoad.play();
+            let s3_text = new createjs.Text(
+                "吃 完 飯 後 ， 你 帶 "+otherName+"  去 散 散 步 \n" +
+                "請 小 心 來 車 ， 安 全 橫 越 大 馬 路\n" , "40px CSong3HK", "#000000");
+            createjs.Tween.get().wait(0).call( function() {
 
-            let flag = 1;
-            //動作宣告
-            let people = [
-                new createjs.Bitmap(repo.getResult('waiting1')),
-                new createjs.Bitmap(repo.getResult('waiting2')),
-                new createjs.Bitmap(repo.getResult('walking1')),
-                new createjs.Bitmap(repo.getResult('walking2')),
-                new createjs.Bitmap(repo.getResult('win1')),
-                new createjs.Bitmap(repo.getResult('win2'))];
-            for (let i = 0; i < 6; i++) {
-                people[i].set({x: 360, y: 50});
-            }
-
-            let shape = new createjs.Shape();
-            let graphics = shape.graphics;
-            //馬路邊界一
-            graphics.beginStroke("black");
-            graphics.setStrokeStyle(5);
-            graphics.moveTo(0, 150);
-            graphics.lineTo(720, 150);
-            //馬路邊界二
-            graphics.beginStroke("black");
-            graphics.setStrokeStyle(5);
-            graphics.moveTo(0, 550);
-            graphics.lineTo(720, 550);
-            //let people= new createjs.Bitmap(repo.getResult('waiting1'));
-
-            let blood = new createjs.Bitmap(repo.getResult('blood'));
-            //車子宣告
-            let cars = [
-                new createjs.Bitmap(repo.getResult('car1')),
-                new createjs.Bitmap(repo.getResult('car2')),
-                new createjs.Bitmap(repo.getResult('car3')),
-                new createjs.Bitmap(repo.getResult('car4')),
-                new createjs.Bitmap(repo.getResult('car5')),
-                new createjs.Bitmap(repo.getResult('car6')),
-                new createjs.Bitmap(repo.getResult('car7'))];
-
-            let carsWidthLength = [[57, 30], [58, 28], [58, 60], [57, 32], [54, 38], [56, 38], [57, 30]];
-            cars[0].set({x: -100, y: 170});
-            cars[1].set({x: 750, y: 350});
-            cars[2].set({x: 750, y: 270});
-            cars[3].set({x: 750, y: 400});
-            cars[4].set({x: 750, y: 500});
-            cars[5].set({x: -200, y: 220});
-            cars[6].set({x: -100, y: 450});
-
-            createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
-            createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
-            createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
-            createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
-            createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
-            createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
-            createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
-
-            let stopFlag = false;
-            //控制上下左右
-            window.addEventListener('keydown', function (e) {
-                flag = 2;
-                switch (e.keyCode) {
-                    // Used for Debugging
-                    case 0:
-                    case 32:
-                        if(stopFlag) {
-                            //cars stop
-                            for (var i = 0;i < 6;i++){
-                                createjs.Tween.get(cars[i], {loop: false}).to({x: cars[i].x, y: cars[i].y});
-                            }
-                        }
-                        else{
-                            createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
-                            createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
-                            createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
-                            createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
-                            createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
-                            createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
-                            createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
-                        }
-
-                    case 37:
-                        for (var i = 0; i < 6; i++) {
-                            people[i].x -= 10;
-                            if (people[i].x <= 0) {
-                                people[i].x = 0;
-                            }
-                        }
-                        break;
-                    case 38:
-                        for (var i = 0; i < 6; i++) {
-                            people[i].y -= 10;
-                            if (people[i].y <= 0) {
-                                people[i].y = 0;
-                            }
-                        }
-                        break;
-                    case 39:
-                        for (var i = 0; i < 6; i++) {
-                            people[i].x += 10;
-                            if (people[i].x >= 660) {
-                                people[i].x = 660;
-                            }
-                        }
-                        break;
-                    case 40:
-                        for (var i = 0; i < 6; i++) {
-                            people[i].y += 10;
-                            if (people[i].y >= 550) {
-                                // Win
-                                carRoad.pause();
-                                clapping.play();
-                                flag = 3;
-                            }
-                            if (people[i].y >= 660) {
-                                people[i].y = 660;
-                            }
-                        }
-                        break;
-                }
+                s3_text.set({textAlign:'center', lineHeight:70, scaleX: 0.8});
+                s3_text.set({x: 360, y: 250});
+                stage.addChild(s3_text);
             });
-            //判斷走路時的動畫(有三種)
-            window.setInterval(function flagtest() {
-                if (flag === 1) {
-                    window.setTimeout(function () {
-                        stage.addChild(people[0]);
-                    }, 0);
-                    window.setTimeout(function () {
-                        stage.removeChild(people[0]);
-                    }, 500);
-                    window.setTimeout(function () {
-                        stage.addChild(people[1]);
-                    }, 500);
-                    window.setTimeout(function () {
-                        stage.removeChild(people[1]);
-                    }, 1000);
-                }
-                if (flag === 2) {
-                    window.setTimeout(function () {
-                        stage.addChild(people[2]);
-                    }, 0);
-                    window.setTimeout(function () {
-                        stage.removeChild(people[2]);
-                    }, 500);
-                    window.setTimeout(function () {
-                        stage.addChild(people[3]);
-                    }, 500);
-                    window.setTimeout(function () {
-                        stage.removeChild(people[3]);
-                    }, 1000);
-                }
-                if (flag === 3) {
-                    //win
-                    window.setTimeout(function () {
-                        stage.addChild(people[4]);
-                    }, 0);
-                    window.setTimeout(function () {
-                        stage.removeChild(people[4]);
-                    }, 500);
-                    window.setTimeout(function () {
-                        stage.addChild(people[5]);
-                    }, 500);
-                    window.setTimeout(function () {
-                        stage.removeChild(people[5]);
-                    }, 1000);
-                    window.setTimeout(function () {
-                        flag = 4;
-                    }, 1000);
-                }
-                if (flag === 4){
-                    win();
-                }
-            }, 1000);
+            createjs.Tween.get().wait(5000).call( function() {
+                stage.removeChild(s3_text);
+                let s3 = new createjs.Bitmap(repo.getResult('stage3'));
+                s3.set({y: 3, scaleX: 1.44, scaleY: 1.44});
+                stage.addChild(s3); // ＳＴＡＧＥ 3
 
-            //判斷有沒有撞到車子
-            window.setInterval(function HitTest() {
-                for (var i = 0; i < 7; i++) {
-                    for (var j = 0; j < 6; j++) {
-                        if (isHit(people[j].x, people[j].y, 49, 60, cars[i].x, cars[i].y,
-                                carsWidthLength[i][0], carsWidthLength[i][1]) == true) {
-                            createjs.Tween.get(blood)
-                                .call(() => {
-                                    crow.play();
-                                    blood.set({x: people[2].x, y: people[2].y});
-                                    stage.addChild(blood);
-                                    people[0].set({x: 360, y: 50});
-                                    people[1].set({x: 360, y: 50});
-                                    people[2].set({x: 360, y: 50});
-                                    people[3].set({x: 360, y: 50});
-                                    people[4].set({x: 360, y: 50});
-                                    people[5].set({x: 360, y: 50});
+                for (let i = 0; i < score; i++) {
+                    stage.addChild(life[i]); // hearts
+                }
 
-                                }).wait(250).call(() => stage.removeChild(blood));
+                let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
+                heart_text.set({
+                    x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
+                    scaleX: 1.35, scaleY: 1.35
+                });
+                stage.addChild(heart_text); // 好感度
+
+                carRoad.play();
+                let flag = 1;
+                //動作宣告
+                let people = [
+                    new createjs.Bitmap(repo.getResult('waiting1')),
+                    new createjs.Bitmap(repo.getResult('waiting2')),
+                    new createjs.Bitmap(repo.getResult('walking1')),
+                    new createjs.Bitmap(repo.getResult('walking2')),
+                    new createjs.Bitmap(repo.getResult('win1')),
+                    new createjs.Bitmap(repo.getResult('win2'))];
+                for (let i = 0; i < 6; i++) {
+                    people[i].set({x: 360, y: 50});
+                }
+
+                let shape = new createjs.Shape();
+                let graphics = shape.graphics;
+                //馬路邊界一
+                graphics.beginStroke("black");
+                graphics.setStrokeStyle(5);
+                graphics.moveTo(0, 150);
+                graphics.lineTo(720, 150);
+                //馬路邊界二
+                graphics.beginStroke("black");
+                graphics.setStrokeStyle(5);
+                graphics.moveTo(0, 550);
+                graphics.lineTo(720, 550);
+                //車子宣告
+                let cars = [
+                    new createjs.Bitmap(repo.getResult('car1')),
+                    new createjs.Bitmap(repo.getResult('car2')),
+                    new createjs.Bitmap(repo.getResult('car3')),
+                    new createjs.Bitmap(repo.getResult('car4')),
+                    new createjs.Bitmap(repo.getResult('car5')),
+                    new createjs.Bitmap(repo.getResult('car6')),
+                    new createjs.Bitmap(repo.getResult('car7'))];
+
+                let carsWidthLength = [[57, 30], [58, 28], [58, 60], [57, 32], [54, 38], [56, 38], [57, 30]];
+                cars[0].set({x: -100, y: 170});
+                cars[1].set({x: 750, y: 350});
+                cars[2].set({x: 750, y: 270});
+                cars[3].set({x: 750, y: 400});
+                cars[4].set({x: 750, y: 500});
+                cars[5].set({x: -200, y: 220});
+                cars[6].set({x: -100, y: 450});
+                let blood = new createjs.Bitmap(repo.getResult('blood'));
+                createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
+                createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
+                createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
+                createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
+                createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
+                createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
+                createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
+                stage.addChild(cars[0], cars[1], cars[2], cars[3], cars[4], cars[5], cars[6]);
+                stage.addChild(shape);
+
+                stage.update();
+
+                let stopFlag = false;
+                //控制上下左右
+                window.addEventListener('keydown', function (e) {
+                    flag = 2;
+                    switch (e.keyCode) {
+                        // Used for Debugging
+                        case 0:
+                        case 32:
+                            if (stopFlag) {
+                                //cars stop
+                                for (var i = 0; i < 6; i++) {
+                                    createjs.Tween.get(cars[i], {loop: false}).to({x: cars[i].x, y: cars[i].y});
+                                }
+                            }
+                            else {
+                                createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
+                                createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
+                                createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
+                                createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
+                                createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
+                                createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
+                                createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
+                            }
+
+                        case 37:
+                            for (var i = 0; i < 6; i++) {
+                                people[i].x -= 10;
+                                if (people[i].x <= 0) {
+                                    people[i].x = 0;
+                                }
+                            }
+                            break;
+                        case 38:
+                            for (var i = 0; i < 6; i++) {
+                                people[i].y -= 10;
+                                if (people[i].y <= 0) {
+                                    people[i].y = 0;
+                                }
+                            }
+                            break;
+                        case 39:
+                            for (var i = 0; i < 6; i++) {
+                                people[i].x += 10;
+                                if (people[i].x >= 660) {
+                                    people[i].x = 660;
+                                }
+                            }
+                            break;
+                        case 40:
+                            for (var i = 0; i < 6; i++) {
+                                people[i].y += 10;
+                                if (people[i].y >= 550) {
+                                    // Win
+                                    carRoad.pause();
+                                    clapping.play();
+                                    flag = 3;
+                                }
+                                if (people[i].y >= 660) {
+                                    people[i].y = 660;
+                                }
+                            }
+                            break;
+                    }
+                });
+                //判斷走路時的動畫(有三種)
+                var check = window.setInterval(function flagtest() {
+                    if (flag === 1) {
+                        window.setTimeout(function () {
+                            stage.addChild(people[0]);
+                        }, 0);
+                        window.setTimeout(function () {
+                            stage.removeChild(people[0]);
+                        }, 500);
+                        window.setTimeout(function () {
+                            stage.addChild(people[1]);
+                        }, 500);
+                        window.setTimeout(function () {
+                            stage.removeChild(people[1]);
+                        }, 1000);
+
+                    }
+                    if (flag === 2) {
+                        window.setTimeout(function () {
+                            stage.addChild(people[2]);
+                        }, 0);
+                        window.setTimeout(function () {
+                            stage.removeChild(people[2]);
+                        }, 500);
+                        window.setTimeout(function () {
+                            stage.addChild(people[3]);
+                        }, 500);
+                        window.setTimeout(function () {
+                            stage.removeChild(people[3]);
+                        }, 1000);
+                    }
+                    if (flag === 3) {
+                        //win
+                        clearInterval(check);
+                        window.setTimeout(function () {
+                            stage.addChild(people[4]);
+                        }, 0);
+                        window.setTimeout(function () {
+                            stage.removeChild(people[4]);
+                        }, 500);
+                        window.setTimeout(function () {
+                            stage.addChild(people[5]);
+                        }, 500);
+                        window.setTimeout(function () {
+                            stage.removeChild(people[5]);
+                        }, 1000);
+                        flag=4;
+                    }
+                    if(flag===4){
+                        window.setTimeout(function () {
+                            win3();
+                        }, 1000);
+                    }
+                }, 1000);
+
+                //判斷有沒有撞到車子
+                window.setInterval(function HitTest() {
+                    for (var i = 0; i < 7; i++) {
+                        for (var j = 0; j < 6; j++) {
+                            if (isHit(people[j].x, people[j].y, 49, 60, cars[i].x, cars[i].y,
+                                    carsWidthLength[i][0], carsWidthLength[i][1]) == true) {
+                                createjs.Tween.get(blood)
+                                    .call(() => {
+                                        crow.play();
+                                        blood.set({x: people[2].x, y: people[2].y});
+                                        stage.addChild(blood);
+                                        people[0].set({x: 360, y: 50});
+                                        people[1].set({x: 360, y: 50});
+                                        people[2].set({x: 360, y: 50});
+                                        people[3].set({x: 360, y: 50});
+                                        people[4].set({x: 360, y: 50});
+                                        people[5].set({x: 360, y: 50});
+
+                                    }).wait(250).call(() => stage.removeChild(blood));
+                            }
                         }
                     }
-                }
-            }, 0);
+                }, 0);
 
-            stage.addChild(cars[0], cars[1], cars[2], cars[3], cars[4], cars[5], cars[6]);
-            stage.addChild(shape);
-            stage.update();
-
-        }else if(level === 4){
+            });
+        }else if(stage3flag === 1 ){
             //level 4
             let stage4 = new createjs.Bitmap(repo.getResult('stage4'));
             let stage4_text = new createjs.Bitmap(repo.getResult('stage4_text'));
@@ -1579,9 +1607,6 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(stage4_button2);
             stage.addChild(stage4_button1);
             stage.addChild(stage4_text);
-            
-
-
         }else{
             //end
 
@@ -1625,6 +1650,16 @@ $(document).ready(()=>{ // jQuery main
         stage.removeAllChildren();
         stage.update();
         level++;
+        scene = 0;
+        draw();
+    }
+    function win3() {
+        // let rect = new createjs.Shape();
+        // rect.graphics.beginFill("white").drawRect(0, 0, 720, 720);
+        // stage.addChild(rect);
+        stage.removeAllChildren();
+        stage.update();
+        stage3flag++;
         scene = 0;
         draw();
     }
