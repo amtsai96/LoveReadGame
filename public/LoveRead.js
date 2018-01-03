@@ -30,6 +30,8 @@ $(document).ready(()=>{ // jQuery main
             {id:'letter',src:'Stage1/images/letter.png'},
             {id:'stage1',src:'Stage1/images/stage1.png'},
             {id:'stage1Text',src:'Stage1/images/stage1_text_.png'},
+            {id:'goodLetter',src:'Stage1/images/good.png'},
+            {id:'badLetter',src:'Stage1/images/bad.png'},
 
             {id:'heartText',src:'Stage1/images/heart_text.png'},
             //{id:'heart',src:'Stage1/images/heart1.png'},
@@ -96,6 +98,7 @@ $(document).ready(()=>{ // jQuery main
 
         // var playerName;
         // var otherName;
+        let letterQuality;
         if (window.otherName == null) window.otherName = 'G';
 
         let life = [];
@@ -207,7 +210,6 @@ $(document).ready(()=>{ // jQuery main
         }else if(level === 1) {
             let lineY = 0;
             let rand;
-            let letterQuality;
 
             let winTime = 3500;
             let background = repo.getResult('background');
@@ -265,9 +267,11 @@ $(document).ready(()=>{ // jQuery main
                     if (rand) {
                         //good
                         letterQuality = true;
+                        console.log(letterQuality);
                     } else {
                         //bad
                         letterQuality = false;
+                        console.log(letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -281,9 +285,11 @@ $(document).ready(()=>{ // jQuery main
                     if (rand) {
                         //good
                         letterQuality = true;
+                        console.log(letterQuality);
                     } else {
                         //bad
                         letterQuality = false;
+                        console.log(letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -292,20 +298,21 @@ $(document).ready(()=>{ // jQuery main
                     draw();
                 });
             } else if (scene === 2) {
-                let text;
+                //let text;
+                console.log(letterQuality);
                 if (letterQuality) {
-                    text = new createjs.Text("good letter", "30px AbrahamLincoln", "black");
-                    text.x = 270;
-                    text.y = 270;
-                    stage.addChild(text);
+                    let goodLetter = new createjs.Bitmap(repo.getResult('goodLetter'));
+                    //letter1.set({scaleX: 1.44, scaleY: 1.44});
+                    //goodLetter.set({x: 122.4, y: 316.8});
+                    stage.addChild(goodLetter);
                 } else {
-                    text = new createjs.Text("bad letter", "30px AbrahamLincoln", "black");
-                    text.x = 270;
-                    text.y = 270;
-                    stage.addChild(text);
+                    let badLetter = new createjs.Bitmap(repo.getResult('badLetter'));
+                    //letter1.set({scaleX: 1.44, scaleY: 1.44});
+                    //badLetter.set({x: 122.4, y: 316.8});
+                    stage.addChild(badLetter);
                 }
                 setTimeout(function () {
-                    stage.removeChild(text);
+                    stage.removeAllChildren();
                     scene++;
                     draw();
                 }, 2000);
@@ -689,7 +696,8 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    stage.addChild(heart1);
+                                    //stage.addChild(heart1);
+                                    pressToNext(score,true,scoreChange);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -701,6 +709,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(nothingGirl);
                                     stage.removeChild(heart);
+                                    pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -814,6 +823,7 @@ $(document).ready(()=>{ // jQuery main
                         .call(() => {
                             console.log(vLine);
                             if (vLine === 1) {
+                                console.log(letterQuality);
                                 if (letterQuality) {
                                     let successBoy = new createjs.Bitmap(repo.getResult('successBoy'));
                                     successBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -825,6 +835,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
                                     stage.addChild(heart1);
+                                    pressToNext(score,true,scoreChange);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -836,6 +847,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(nothingGirl);
                                     stage.removeChild(heart);
+                                    pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -959,6 +971,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
                                     stage.addChild(heart1);
+                                    pressToNext(score,true,scoreChange);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -970,6 +983,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(nothingGirl);
                                     stage.removeChild(heart);
+                                    pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -1093,6 +1107,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
                                     stage.addChild(heart1);
+                                    pressToNext(score,true,scoreChange);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1104,6 +1119,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(startGirl);
                                     stage.addChild(nothingGirl);
                                     stage.removeChild(heart);
+                                    pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
