@@ -259,21 +259,19 @@ $(document).ready(()=>{ // jQuery main
                 letter1.set({x: 520, y: 300});
                 stage.addChild(letter1);
 
-                let letterQuality;
-
                 letter.on('click', e => {
 
                     rand = Math.floor(Math.random() * 2);
                     if (rand) {
                         //good
-                        letterQuality = true;
+                        window.letterQuality = true;
                         // alert(letterQuality);
-                        // console.log(letterQuality);
+                        console.log(window.letterQuality);
                     } else {
                         //bad
-                        letterQuality = false;
+                        window.letterQuality = false;
                         // alert(letterQuality);
-                        // console.log(letterQuality);
+                        console.log(window.letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -286,12 +284,12 @@ $(document).ready(()=>{ // jQuery main
                     rand = Math.floor(Math.random() * 2);
                     if (rand) {
                         //good
-                        letterQuality = true;
-                        console.log(letterQuality);
+                        window.letterQuality = true;
+                        console.log(window.letterQuality);
                     } else {
                         //bad
-                        letterQuality = false;
-                        console.log(letterQuality);
+                        window.letterQuality = false;
+                        console.log(window.letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -301,8 +299,8 @@ $(document).ready(()=>{ // jQuery main
                 });
             } else if (scene === 2) {
                 //let text;
-                console.log(letterQuality);
-                if (letterQuality) {
+                console.log(window.letterQuality);
+                if (window.letterQuality) {
                     let goodLetter = new createjs.Bitmap(repo.getResult('goodLetter'));
                     //letter1.set({scaleX: 1.44, scaleY: 1.44});
                     //goodLetter.set({x: 122.4, y: 316.8});
@@ -688,7 +686,7 @@ $(document).ready(()=>{ // jQuery main
                         .call(() => {
                             console.log(vLine);
                             if (vLine === 1) {
-                                if (letterQuality) {
+                                if (window.letterQuality) {
                                     let successBoy = new createjs.Bitmap(repo.getResult('successBoy'));
                                     successBoy.set({scaleX: 1.44, scaleY: 1.44});
                                     successBoy.regX = successBoy.image.width / 2;
@@ -825,8 +823,8 @@ $(document).ready(()=>{ // jQuery main
                         .call(() => {
                             console.log(vLine);
                             if (vLine === 1) {
-                                console.log(letterQuality);
-                                if (letterQuality) {
+                                console.log(window.letterQuality);
+                                if (window.letterQuality) {
                                     let successBoy = new createjs.Bitmap(repo.getResult('successBoy'));
                                     successBoy.set({scaleX: 1.44, scaleY: 1.44});
                                     successBoy.regX = successBoy.image.width / 2;
@@ -962,7 +960,7 @@ $(document).ready(()=>{ // jQuery main
                         .call(() => {
                             console.log(vLine);
                             if (vLine === 1) {
-                                if (letterQuality) {
+                                if (window.letterQuality) {
                                     let successBoy = new createjs.Bitmap(repo.getResult('successBoy'));
                                     successBoy.set({scaleX: 1.44, scaleY: 1.44});
                                     successBoy.regX = successBoy.image.width / 2;
@@ -1098,7 +1096,7 @@ $(document).ready(()=>{ // jQuery main
                         .call(() => {
                             console.log(vLine);
                             if (vLine === 1) {
-                                if (letterQuality) {
+                                if (window.letterQuality) {
                                     let successBoy = new createjs.Bitmap(repo.getResult('successBoy'));
                                     successBoy.set({scaleX: 1.44, scaleY: 1.44});
                                     successBoy.regX = successBoy.image.width / 2;
