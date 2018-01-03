@@ -2,7 +2,7 @@ $(document).ready(()=>{ // jQuery main
 
     const stage = new createjs.Stage(canvas);
     const repo = new createjs.LoadQueue();
-    let level = 1;
+    let level = 0;
     let scene = 0;
     let stage3flag = 0;
     function setup() {
