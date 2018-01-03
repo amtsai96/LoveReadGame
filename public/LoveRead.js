@@ -96,9 +96,6 @@ $(document).ready(()=>{ // jQuery main
 
     function draw(){
 
-        // var playerName;
-        // var otherName;
-        let letterQuality;
         if (window.otherName == null) window.otherName = 'G';
 
         let life = [];
@@ -228,12 +225,12 @@ $(document).ready(()=>{ // jQuery main
                         offsetY += 0.8;
                     }
                 }
-                let otherNameText = new createjs.Text(otherName, textSize+"px AbrahamLincoln", "black");
-                otherNameText.set({x: 371+offsetX, y: 213+offsetY});
+                let otherNameText = new createjs.Text(otherName, textSize+"px CSong3HK", "black");
+                otherNameText.set({x: 371+offsetX, y: 211+offsetY});
                 stage.addChild(otherNameText);
 
-                let otherNameText2 = new createjs.Text(otherName, textSize+"px AbrahamLincoln", "black");
-                otherNameText2.set({x: 453+offsetX, y: 358+offsetY});
+                let otherNameText2 = new createjs.Text(otherName, textSize+"px CSong3HK", "black");
+                otherNameText2.set({x: 453+offsetX, y: 356+offsetY});
                 stage.addChild(otherNameText2);
 
                 let stage1Text = new createjs.Bitmap(repo.getResult('stage1Text'));
@@ -248,8 +245,8 @@ $(document).ready(()=>{ // jQuery main
                     draw();
                 }, 3500);
             } else if (scene === 1) {
-                let text = new createjs.Text("請選擇一封", "30px AbrahamLincoln", "black");
-                text.set({x: 345, y: 200});
+                let text = new createjs.Text("請選擇一封", "40px CSong3HK", "black");
+                text.set({x: 300, y: 200});
                 stage.addChild(text);
 
                 let letter = new createjs.Bitmap(repo.getResult('letter'));
@@ -262,16 +259,21 @@ $(document).ready(()=>{ // jQuery main
                 letter1.set({x: 520, y: 300});
                 stage.addChild(letter1);
 
+                let letterQuality;
+
                 letter.on('click', e => {
+
                     rand = Math.floor(Math.random() * 2);
                     if (rand) {
                         //good
                         letterQuality = true;
-                        console.log(letterQuality);
+                        // alert(letterQuality);
+                        // console.log(letterQuality);
                     } else {
                         //bad
                         letterQuality = false;
-                        console.log(letterQuality);
+                        // alert(letterQuality);
+                        // console.log(letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
