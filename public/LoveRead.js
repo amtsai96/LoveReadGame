@@ -2,7 +2,7 @@ $(document).ready(()=>{ // jQuery main
 
     const stage = new createjs.Stage(canvas);
     const repo = new createjs.LoadQueue();
-    let level = 0;
+    let level = 1;
     let scene = 0;
     let stage3flag = 0;
     function setup() {
@@ -103,6 +103,12 @@ $(document).ready(()=>{ // jQuery main
             life[i] = new createjs.Bitmap(repo.getResult('life'));
             life[i].set({x: canvas.width - life[i].image.width * 1.1 * (6 - i), y: 5});
         }
+
+        let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
+        heart_text.set({
+            x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
+            scaleX: 1.35, scaleY: 1.35
+        });
 
         let score = 2;
         let scoreChange = false;
@@ -1182,16 +1188,8 @@ $(document).ready(()=>{ // jQuery main
                 s2.set({y: 3, scaleX: 1.44, scaleY: 1.44});
                 stage.addChild(s2); // ＳＴＡＧＥ ２
 
-                for (let i = 0; i < score; i++) {
-                    stage.addChild(life[i]); // hearts
-                }
-
-                let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
-                heart_text.set({
-                    x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
-                    scaleX: 1.35, scaleY: 1.35
-                });
-                stage.addChild(heart_text); // 好感度
+                console.log(score);
+                printScore(score);
 
                 let girle = [new createjs.Bitmap(repo.getResult('girle1')),
                     new createjs.Bitmap(repo.getResult('girle2'))];
@@ -1257,7 +1255,7 @@ $(document).ready(()=>{ // jQuery main
                                     girl_loop.setPaused(true);
                                     stage.removeChild(girlm[1]);
                                     stage.addChild(girlm[0]);
-                                    createjs.Tween.get(girlm).wait(800).call(function () {
+                                    girl_loop = createjs.Tween.get(girlm).wait(800).call(function () {
                                         stage.removeChild(girlm[0]);
                                         stage.addChild(girlm[1]);
                                     });
@@ -1266,6 +1264,7 @@ $(document).ready(()=>{ // jQuery main
                                 stage.removeChild(illu_text);
                                 time_loop.setPaused(true);
                                 boy_loop.setPaused(true);
+                                girl_loop.setPaused(true);
                                 pressToNext(score,isWin,scoreChange);
                         }
                     });
@@ -1306,7 +1305,7 @@ $(document).ready(()=>{ // jQuery main
                         }
                         stage.removeChild(illu_text);
                         time_loop.setPaused(true);
-                        time_loop.setPaused(true);
+                        girl_loop.setPaused(true);
                         pressToNext(score,isWin,scoreChange);
                     }
                 });
@@ -1628,6 +1627,15 @@ $(document).ready(()=>{ // jQuery main
 
         }
 
+        function printScore(score) {
+            for (let i = 0; i < 6; i++) {
+                if (i < score) stage.addChild(life[i]); // hearts
+                else stage.removeChild(life[i]);
+            }
+
+            stage.addChild(heart_text); // 好感度
+        }
+
         function pressToNext(score,isWin,scoreChanged) {
             let bg = new createjs.Shape();
             bg.graphics.beginFill('#ffffff').drawRect(0,490,720,100);
@@ -1639,12 +1647,10 @@ $(document).ready(()=>{ // jQuery main
                 if (!isWin) score--;
                 else score++;
                 scoreChanged = true;
+                window.score = score;
             }
-            console.log(score);
-            for (let i = 0; i < 6; i++) {
-                if (i < score) stage.addChild(life[i]); // hearts
-                else stage.removeChild(life[i])
-            }
+            console.log(window.score);
+            printScore(window.score);
             window.addEventListener('keydown', function (e) {
                 switch (e.keyCode) {
                     case 13: //enter
