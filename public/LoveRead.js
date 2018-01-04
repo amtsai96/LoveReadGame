@@ -214,18 +214,18 @@ $(document).ready(()=>{ // jQuery main
                     //alert('你的姓名是: '+playerName+'\n對方的姓名是: '+otherName);
                     plName_.remove();
                     otName_.remove();
-                    win();
+                    win(1);
 
                 });
             }
 
         }else{
             //play again
-            stage.addChild(again);
-            again.on('click', e => {
-                background.play();
-                reset(0,2);
-            });
+            // stage.addChild(again);
+            // again.on('click', e => {
+            //     background.play();
+            //     reset(0,2);
+            // });
         }
         if(level === 1) {
             let lineY = 0;
@@ -328,7 +328,7 @@ $(document).ready(()=>{ // jQuery main
                     stage.addChild(badLetter);
                 }
                 setTimeout(function () {
-                    win();
+                    win(1);
                 }, 5000);
 
             } else if (scene === 3) {
@@ -703,7 +703,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    pressToNext(window.score,true);
+                                    pressToNext(window.score,true,1);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -714,7 +714,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    pressToNext(window.score,false);
+                                    pressToNext(window.score,false,1);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -843,7 +843,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    pressToNext(window.score,true);
+                                    pressToNext(window.score,true,1);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -854,7 +854,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    pressToNext(window.score,false);
+                                    pressToNext(window.score,false,1);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -981,7 +981,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    pressToNext(window.score,true);
+                                    pressToNext(window.score,true,1);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -992,7 +992,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    pressToNext(window.score,false);
+                                    pressToNext(window.score,false,1);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -1119,7 +1119,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    pressToNext(window.score,true);
+                                    pressToNext(window.score,true,1);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1130,7 +1130,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    pressToNext(window.score,false);
+                                    pressToNext(window.score,false,1);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -1273,7 +1273,7 @@ $(document).ready(()=>{ // jQuery main
                                 time_loop.setPaused(true);
                                 boy_loop.setPaused(true);
                                 girl_loop.setPaused(true);
-                                pressToNext(window.score,isWin);
+                                pressToNext(window.score,isWin,2);
                         }
                     });
 
@@ -1314,7 +1314,7 @@ $(document).ready(()=>{ // jQuery main
                         stage.removeChild(illu_text);
                         time_loop.setPaused(true);
                         girl_loop.setPaused(true);
-                        pressToNext(window.score,isWin);
+                        pressToNext(window.score,isWin,2);
                     }
                 });
 
@@ -1322,6 +1322,8 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(s2_text);
 
         }else if(level === 3) {
+
+            console.log("level : " +level);
             stage.removeAllChildren();
             let carRoad = repo.getResult('carRoad');
             let clapping = repo.getResult('clapping');
@@ -1340,16 +1342,8 @@ $(document).ready(()=>{ // jQuery main
                 let s3 = new createjs.Bitmap(repo.getResult('stage3'));
                 s3.set({y: 3, scaleX: 1.44, scaleY: 1.44});
                 stage.addChild(s3); // ＳＴＡＧＥ 3
+                printScore(window.score);
 
-                for (let i = 0; i < score; i++) {
-                    stage.addChild(life[i]); // hearts
-                }
-
-                // let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
-                // heart_text.set({
-                //     x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
-                //     scaleX: 1.35, scaleY: 1.35
-                // });
                 stage.addChild(heart_text); // 好感度
 
                 carRoad.play();
@@ -1387,7 +1381,7 @@ $(document).ready(()=>{ // jQuery main
                     new createjs.Bitmap(repo.getResult('car5')),
                     new createjs.Bitmap(repo.getResult('car6')),
                     new createjs.Bitmap(repo.getResult('car7'))];
-
+                let isWin = true;
                 let carsWidthLength = [[57, 30], [58, 28], [58, 60], [57, 32], [54, 38], [56, 38], [57, 30]];
                 cars[0].set({x: -100, y: 170});
                 cars[1].set({x: 750, y: 350});
@@ -1398,10 +1392,10 @@ $(document).ready(()=>{ // jQuery main
                 cars[6].set({x: -100, y: 450});
                 let blood = new createjs.Bitmap(repo.getResult('blood'));
                 createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
-                createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
-                createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
-                createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
-                createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
+                createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 5000);
+                createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 2500);
+                createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 3500);
+                createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 5500);
                 createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
                 createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
                 stage.addChild(cars[0], cars[1], cars[2], cars[3], cars[4], cars[5], cars[6]);
@@ -1476,6 +1470,7 @@ $(document).ready(()=>{ // jQuery main
                 //判斷走路時的動畫(有三種)
                 var check = window.setInterval(function flagtest() {
                     if (flag === 1) {
+                        console.log("level1: " +level);
                         window.setTimeout(function () {
                             stage.addChild(people[0]);
                         }, 0);
@@ -1488,9 +1483,9 @@ $(document).ready(()=>{ // jQuery main
                         window.setTimeout(function () {
                             stage.removeChild(people[1]);
                         }, 1000);
-
                     }
                     if (flag === 2) {
+                        console.log("level2: " +level);
                         window.setTimeout(function () {
                             stage.addChild(people[2]);
                         }, 0);
@@ -1506,7 +1501,7 @@ $(document).ready(()=>{ // jQuery main
                     }
                     if (flag === 3) {
                         //win
-                        clearInterval(check);
+                        console.log("level3: " +level);
                         window.setTimeout(function () {
                             stage.addChild(people[4]);
                         }, 0);
@@ -1523,8 +1518,11 @@ $(document).ready(()=>{ // jQuery main
                     }
                     if(flag===4){
                         window.setTimeout(function () {
-                            win();
+                            console.log("levelwinbefore: " +level);
+                            pressToNext(window.score,isWin,3);
+                            console.log("levelwinafter: " +level);
                         }, 1000);
+                        clearInterval(check);
                     }
                 }, 1000);
 
@@ -1537,6 +1535,7 @@ $(document).ready(()=>{ // jQuery main
                                 createjs.Tween.get(blood)
                                     .call(() => {
                                         crow.play();
+                                        isWin = false;
                                         blood.set({x: people[2].x, y: people[2].y});
                                         stage.addChild(blood);
                                         people[0].set({x: 360, y: 50});
@@ -1579,7 +1578,7 @@ $(document).ready(()=>{ // jQuery main
                 printScore(score);
                 setTimeout(function () {
                     fire_.remove();
-                    win();
+                    win(4);
                     score--;
                     printScore(score);
                 }, 22000);
@@ -1600,7 +1599,7 @@ $(document).ready(()=>{ // jQuery main
                 printScore(score);
                 setTimeout(function () {
                     sea_.remove();
-                    win();
+                    win(4);
                     score++;
                     printScore(score);
                 }, 22000);
@@ -1621,7 +1620,7 @@ $(document).ready(()=>{ // jQuery main
                     home_.remove();
                     score--;
                     console.log('NOW=' + score);
-                    win();
+                    win(4);
                     printScore(score);
                 }, 15000);
 
@@ -1686,7 +1685,7 @@ $(document).ready(()=>{ // jQuery main
             }
         }
 
-        function pressToNext(score,isWin) {
+        function pressToNext(score,isWin,stagetest) {
 
             if(level === 1){}
             else{
@@ -1704,12 +1703,13 @@ $(document).ready(()=>{ // jQuery main
                 if(score > 5) score = 5;
             }
             console.log(score);
+            console.log("stagepress:"+stagetest);
             printScore(score);
             window.addEventListener('keydown', function (e) {
                 switch (e.keyCode) {
                     case 13: //enter
                         window.score = score;
-                        win();
+                        win(stagetest);
                 }
             });
         }
@@ -1729,14 +1729,13 @@ $(document).ready(()=>{ // jQuery main
     function isHit(ax,ay, aw,ah, bx,by, bw,bh) {
         return (ax+aw > bx && ax < bx + bw  && ay+ah > by && ay < by + bh);
     }
-    function win() {
+    function win(stagetest) {
         stage.removeAllChildren();
         stage.update();
         level++;
+        console.log("stagewin:"+stagetest);
         scene = 0;
         draw();
     }
-
     setup();
-
 });
