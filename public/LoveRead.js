@@ -57,7 +57,6 @@ $(document).ready(()=>{ // jQuery main
             {id:'boyb2', src:'Stage2/images/bfBurp4.PNG'},
             {id:'boyb3', src:'Stage2/images/bfBurp6.PNG'},
             {id:'boyb4', src:'Stage2/images/bfBurp8.PNG'},
-            //{id:'CHfont', src:'Stage2/images/CSong3HK.otf'},
             {id:'burp_sound', src:'Stage2/sound/burp1.mp3'},
 
             // Stage 3
@@ -1183,7 +1182,6 @@ $(document).ready(()=>{ // jQuery main
             }
         }else if(level === 2) {
             let isWin = true;
-            //createjs.FontLoader(repo.getResult('CHfont'));
             let s2_text = new createjs.Text(
                 "你 約  "+otherName+"  去 吃 浪 漫 晚 餐\n" +
                 "吃 飽 後 你 很 想 打 個 嗝\n" +
