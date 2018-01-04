@@ -4,7 +4,7 @@ $(document).ready(()=>{ // jQuery main
     const repo = new createjs.LoadQueue();
     let level = 0;
     let scene = 0;
-    let stage3flag = 0;
+
     function setup() {
         // automatically update
         createjs.Ticker.on("tick", e => stage.update());
@@ -33,10 +33,7 @@ $(document).ready(()=>{ // jQuery main
             {id:'stage1Text',src:'Stage1/images/stage1_text_.png'},
             {id:'goodLetter',src:'Stage1/images/good.png'},
             {id:'badLetter',src:'Stage1/images/bad.png'},
-
             {id:'heartText',src:'Stage1/images/heart_text.png'},
-            //{id:'heart',src:'Stage1/images/heart1.png'},
-
             {id:'background',src:"Stage1/sound/background_music.mp3"},
             {id:'heartbeat',src:"Stage1/sound/heartbeats.mp3"},
 
@@ -92,11 +89,11 @@ $(document).ready(()=>{ // jQuery main
             {id:'stage4_text',src:'Stage4/images/stage4_text.png'},
 
             // End
-            {id:'play_again',src:'End/images/button_playagain.png'},
-            {id:'cmt_01',src:'End/images/comment_01.png'},
-            {id:'cmt_2',src:'End/images/comment_2.png'},
-            {id:'cmt_3',src:'End/images/comment_3.png'},
-            {id:'cmt_45',src:'End/images/comment_45.png'}
+            {id:'again',src:'End/images/button_playagain.png'},
+            {id:'cmt01',src:'End/images/comment_01.png'},
+            {id:'cmt2',src:'End/images/comment_2.png'},
+            {id:'cmt3',src:'End/images/comment_3.png'},
+            {id:'cmt45',src:'End/images/comment_45.png'}
 
         ]);
         repo.on('complete', draw);
@@ -104,23 +101,27 @@ $(document).ready(()=>{ // jQuery main
 
     function draw(){
 
-        if (window.otherName == null) window.otherName = 'G';
+        if (window.otherName == null) window.otherName = 'Test';
 
         let life = [];
         for (let i = 0; i < 6; i++) {
             life[i] = new createjs.Bitmap(repo.getResult('life'));
-            life[i].set({x: canvas.width - life[i].image.width * 1.1 * (6 - i), y: 5});
+            life[i].set({x: canvas.width - life[i].image.width * 1.1 * (6 - i), y: 10});
         }
 
         let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
         heart_text.set({
-            x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
+            x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -5,
             scaleX: 1.35, scaleY: 1.35
         });
+
+        let again = new createjs.Bitmap(repo.getResult('again'));
+        again.set({x:canvas.width - again.image.width - 10, y:0});
 
         let score = 2;
         let scoreChange = false;
         let background = repo.getResult('background');
+
 
         if(level === 0) {
             if (scene === 0) {
@@ -220,14 +221,21 @@ $(document).ready(()=>{ // jQuery main
                 });
             }
 
-        }else if(level === 1) {
+        }else{
+            //play again
+            stage.addChild(again);
+            again.on('click', e => {
+                background.play();
+                reset(0,2);
+            });
+        }
+        if(level === 1) {
             let lineY = 0;
             let rand;
 
             let heartbeat = repo.getResult('heartbeat');
 
             if (scene === 0) {
-                // alert(otherName);
                 let textSize = 27;
                 let offsetX = 48;
                 let offsetY = 0;
@@ -257,6 +265,7 @@ $(document).ready(()=>{ // jQuery main
                     scene++;
                     draw();
                 }, 3500);
+
             } else if (scene === 1) {
 
                 let text = new createjs.Text("請選擇一封", "40px CSong3HK", "black");
@@ -279,13 +288,9 @@ $(document).ready(()=>{ // jQuery main
                     if (rand) {
                         //good
                         window.letterQuality = true;
-                        // alert(letterQuality);
-                        //console.log(window.letterQuality);
                     } else {
                         //bad
                         window.letterQuality = false;
-                        // alert(letterQuality);
-                        //console.log(window.letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -299,11 +304,9 @@ $(document).ready(()=>{ // jQuery main
                     if (rand) {
                         //good
                         window.letterQuality = true;
-                        //console.log(window.letterQuality);
                     } else {
                         //bad
                         window.letterQuality = false;
-                        console.log(window.letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -327,7 +330,6 @@ $(document).ready(()=>{ // jQuery main
                     stage.addChild(badLetter);
                 }
                 setTimeout(function () {
-                    //stage.removeAllChildren();
                     win();
                 }, 5000);
 
@@ -350,18 +352,6 @@ $(document).ready(()=>{ // jQuery main
 
                 let stage1 = new createjs.Bitmap(repo.getResult('stage1'));
                 stage1.set({scaleX: 1.44, scaleY: 1.44});
-
-                let heartText = new createjs.Bitmap(repo.getResult('heartText'));
-                heartText.set({scaleX: 1.44, scaleY: 1.44});
-                heartText.set({x: 288, y: 14.4});
-
-                let heart = new createjs.Bitmap(repo.getResult('heart'));
-                heart.set({scaleX: 1.44, scaleY: 1.44});
-                heart.set({x: 446.4, y: 31.68});
-
-                let heart1 = new createjs.Bitmap(repo.getResult('heart'));
-                heart1.set({scaleX: 1.44, scaleY: 1.44});
-                heart1.set({x: 485, y: 31.68});
 
                 let startGirl = new createjs.Bitmap(repo.getResult('startGirl'));
                 startGirl.set({scaleX: 1.44, scaleY: 1.44});
@@ -715,8 +705,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    //stage.addChild(heart1);
-                                    pressToNext(score,true,scoreChange);
+                                    pressToNext(score,true,true);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -727,8 +716,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    stage.removeChild(heart);
-                                    pressToNext(score,false,scoreChange);
+                                    pressToNext(score,false,true);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -857,8 +845,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    stage.addChild(heart1);
-                                    pressToNext(score,true,scoreChange);
+                                    pressToNext(score,true,true);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -869,8 +856,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    stage.removeChild(heart);
-                                    pressToNext(score,false,scoreChange);
+                                    pressToNext(score,false,true);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -997,8 +983,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    stage.addChild(heart1);
-                                    pressToNext(score,true,scoreChange);
+                                    pressToNext(score,true,true);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1009,8 +994,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    stage.removeChild(heart);
-                                    pressToNext(score,false,scoreChange);
+                                    pressToNext(score,false,true);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -1137,8 +1121,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    stage.addChild(heart1);
-                                    pressToNext(score,true,scoreChange);
+                                    pressToNext(score,true,true);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1149,8 +1132,7 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    stage.removeChild(heart);
-                                    pressToNext(score,false,scoreChange);
+                                    pressToNext(score,false,true);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -1190,10 +1172,8 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(letter4);
 
                 stage.addChild(stage1);
-                //stage.addChild(heartText);
                 window.score = 2;
                 printScore(window.score);
-                stage.addChild(heart);
                 stage.addChild(startGirl);
                 stage.addChild(startBoy);
 
@@ -1368,11 +1348,11 @@ $(document).ready(()=>{ // jQuery main
                     stage.addChild(life[i]); // hearts
                 }
 
-                let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
-                heart_text.set({
-                    x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
-                    scaleX: 1.35, scaleY: 1.35
-                });
+                // let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
+                // heart_text.set({
+                //     x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -13,
+                //     scaleX: 1.35, scaleY: 1.35
+                // });
                 stage.addChild(heart_text); // 好感度
 
                 carRoad.play();
@@ -1546,7 +1526,7 @@ $(document).ready(()=>{ // jQuery main
                     }
                     if(flag===4){
                         window.setTimeout(function () {
-                            win3();
+                            win();
                         }, 1000);
                     }
                 }, 1000);
@@ -1576,7 +1556,7 @@ $(document).ready(()=>{ // jQuery main
                 }, 0);
 
             });
-        }else if(stage3flag === 1 ){
+        }else if(level === 4) {
             //level 4
             let stage4 = new createjs.Bitmap(repo.getResult('stage4'));
             let stage4_text = new createjs.Bitmap(repo.getResult('stage4_text'));
@@ -1587,65 +1567,67 @@ $(document).ready(()=>{ // jQuery main
             stage4_button2.set({x: 250, y: 400});
             let stage4_button3 = new createjs.Bitmap(repo.getResult('stage4_button3'));
             stage4_button3.set({x: 400, y: 400});
-            let heartText = new createjs.Bitmap(repo.getResult('heartText'));	
-            heartText.set({scaleX: 1.44, scaleY: 1.44});
-            heartText.set({x: 288, y: 14.4});
-            let heart1 = new createjs.Bitmap(repo.getResult('heart'));	
-            heart1.set({scaleX: 1.44, scaleY: 1.44});
-            heart1.set({x: 485, y: 31.68});
 
-
-            stage4_button1.on('click',e =>{
-                // location.assign('http://localhost:3000/Stage4/stage4_fire/');
-                
+            stage4_button1.on('click', e => {
+                stage.removeChild(again);
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
                 stage.removeChild(stage4_text);
-                stage.addChild(heartText);
-                stage.addChild(heart1);
-                var fire_= $('<video autoplay><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+
+                var fire_ = $('<video autoplay><source src="Stage4/video/fire.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var fire = new createjs.DOMElement(fire_);
-                fire.set({x:-720,y:-30});
+                fire.set({x: -720, y: 55});
                 stage.addChild(fire);
-                setTimeout(function(){
+                printScore(score);
+                setTimeout(function () {
+                    fire_.remove();
                     win();
+                    score--;
+                    printScore(score);
                 }, 22000);
-                
+
             });
-            stage4_button2.on('click',e =>{
-                // location.assign('http://localhost:3000/Stage4/stage4_sea/');
+            stage4_button2.on('click', e => {
+                // the correct one
+                stage.removeChild(again);
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
                 stage.removeChild(stage4_text);
-                stage.addChild(heartText);
-                stage.addChild(heart1);
-                var sea_= $('<video autoplay><source src="Stage4/video/sea.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+
+                var sea_ = $('<video autoplay><source src="Stage4/video/sea.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var sea = new createjs.DOMElement(sea_);
-                sea.set({x:-720,y:-30});
+                sea.set({x: -720, y: 55});
                 stage.addChild(sea);
-                setTimeout(function(){
+                printScore(score);
+                setTimeout(function () {
+                    sea_.remove();
                     win();
-                }, 29000);
-                
+                    score++;
+                    printScore(score);
+                }, 22000);
+
             });
-            stage4_button3.on('click',e =>{
-                // location.assign('http://localhost:3000/Stage4/stage4_home/');
+            stage4_button3.on('click', e => {
+                stage.removeChild(again);
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
                 stage.removeChild(stage4_text);
-                stage.addChild(heartText);
-                stage.addChild(heart1);
-                var home_= $('<video autoplay><source src="Stage4/video/home.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
+                printScore(score);
+                var home_ = $('<video autoplay><source src="Stage4/video/home.mp4" type="video/mp4"></video>').appendTo(document.body)[0];
                 var home = new createjs.DOMElement(home_);
-                home.set({x:-720,y:-30});
+                home.set({x: -720, y: 55});
                 stage.addChild(home);
-                setTimeout(function(){
+                setTimeout(function () {
+                    home_.remove();
+                    score--;
+                    console.log('NOW=' + score);
                     win();
-                }, 29000);
-               
+                    printScore(score);
+                }, 15000);
+
             });
 
             stage.addChild(stage4);
@@ -1653,42 +1635,6 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(stage4_button2);
             stage.addChild(stage4_button1);
             stage.addChild(stage4_text);
-        }else{
-            //end
-            let cmt01 = new createjs.Bitmap(repo.getResult('cmt01'));
-            cmt01.set({x: 150, y: 120});
-            let cmt2 = new createjs.Bitmap(repo.getResult('cmt2'));
-            cmt2.set({x: 150, y: 120});
-            let cmt3 = new createjs.Bitmap(repo.getResult('cmt3'));
-            cmt3.set({x: 150, y: 120});
-            let cmt45 = new createjs.Bitmap(repo.getResult('cmt45'));
-            cmt45.set({x: 150, y: 120});
-            console.log(score);
-            switch(score){
-                case 0:
-                case 1:
-                    stage.addChild(cmt01);
-                    break;
-                case 2:
-                    stage.addChild(cmt2);
-                    break;
-                case 3:
-                    stage.addChild(cmt3);
-                    break;
-                case 4:
-                case 5:
-                    stage.addChild(cmt45);
-                    break;
-            }
-            window.addEventListener('keydown', function (e) {
-                switch (e.keyCode) {
-                    case 27: //esc
-                        //quit
-                        level = 0;
-                        draw();
-                }
-            });
-
         }
 
         function printScore(score) {
@@ -1701,9 +1647,50 @@ $(document).ready(()=>{ // jQuery main
                 }
             }
             stage.addChild(heart_text); // 好感度
+            if(level > 4){
+                //end
+                stage.removeChild(again);
+                let cmt01 = new createjs.Bitmap(repo.getResult('cmt01'));
+                cmt01.set({scaleX: 1.3, scaleY: 1.3});
+                cmt01.set({x: 80, y: 80});
+                let cmt2 = new createjs.Bitmap(repo.getResult('cmt2'));
+                cmt2.set({scaleX: 1.3, scaleY: 1.3});
+                cmt2.set({x: 80, y: 80});
+                let cmt3 = new createjs.Bitmap(repo.getResult('cmt3'));
+                cmt3.set({scaleX: 1.3, scaleY: 1.3});
+                cmt3.set({x: 80, y: 80});
+                let cmt45 = new createjs.Bitmap(repo.getResult('cmt45'));
+                cmt45.set({scaleX: 1.3, scaleY: 1.3});
+                cmt45.set({x: 80, y: 80});
+                console.log('Score:'+score);
+                switch(score){
+                    case 0:
+                    case 1:
+                        stage.addChild(cmt01);
+                        break;
+                    case 2:
+                        stage.addChild(cmt2);
+                        break;
+                    case 3:
+                        stage.addChild(cmt3);
+                        break;
+                    case 4:
+                    case 5:
+                        stage.addChild(cmt45);
+                        break;
+                }
+                window.addEventListener('keydown', function (e) {
+                    switch (e.keyCode) {
+                        case 27: //esc
+                            //quit
+                            reset(0,0);
+                    }
+                });
+            }
         }
 
         function pressToNext(score,isWin,scoreChanged) {
+
             if(level === 1){}
             else{
                 let bg = new createjs.Shape();
@@ -1717,6 +1704,8 @@ $(document).ready(()=>{ // jQuery main
                 if (!isWin) score--;
                 else score++;
                 scoreChanged = true;
+                if(score < 0) score = 0;
+                if(score > 5) score = 5;
                 window.score = score;
             }
             console.log(window.score);
@@ -1730,25 +1719,25 @@ $(document).ready(()=>{ // jQuery main
             });
         }
 
+        function reset(reset_level,reset_scene){
+            stage.removeAllChildren();
+            stage.update();
+            level = reset_level;
+            scene = reset_scene;
+            window.score = 2;
+            console.log(level,window.score);
+            draw();
+        }
+
     }
 
     function isHit(ax,ay, aw,ah, bx,by, bw,bh) {
         return (ax+aw > bx && ax < bx + bw  && ay+ah > by && ay < by + bh);
     }
     function win() {
-        // let rect = new createjs.Shape();
-        // rect.graphics.beginFill("white").drawRect(0, 0, 720, 720);
-        // stage.addChild(rect);
         stage.removeAllChildren();
         stage.update();
         level++;
-        scene = 0;
-        draw();
-    }
-    function win3() {
-        stage.removeAllChildren();
-        stage.update();
-        stage3flag++;
         scene = 0;
         draw();
     }
