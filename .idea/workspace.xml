@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e5c7005-ccdc-423d-8249-195e08bbf300" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/LoveRead.js" afterPath="$PROJECT_DIR$/public/LoveRead.js" />
-    </list>
+    <list default="true" id="9e5c7005-ccdc-423d-8249-195e08bbf300" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -36,20 +34,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Stage2.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Stage2.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/Stage2/Stage2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="181" column="5" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="181" selection-end-column="5" />
+            <state relative-caret-position="91">
+              <caret line="40" column="49" lean-forward="false" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoveRead.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoveRead.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/LoveRead.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
+            <state relative-caret-position="10605">
               <caret line="707" column="34" lean-forward="true" selection-start-line="707" selection-start-column="34" selection-end-line="707" selection-end-column="34" />
               <folding />
             </state>
@@ -242,7 +240,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10146000" />
+    <option name="totallyTimeSpent" value="10750000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -437,14 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="1219" column="0" lean-forward="false" selection-start-line="1219" selection-start-column="0" selection-end-line="1219" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/Stage2/Stage2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="181" column="5" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="181" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -659,14 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/Stage2/Stage2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/LoveRead.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -677,8 +659,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/LoveRead.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
+        <state relative-caret-position="10605">
           <caret line="707" column="34" lean-forward="true" selection-start-line="707" selection-start-column="34" selection-end-line="707" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/Stage2/Stage2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/Stage2/Stage2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="40" column="49" lean-forward="false" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
           <folding />
         </state>
       </provider>
