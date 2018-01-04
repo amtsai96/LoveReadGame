@@ -118,7 +118,6 @@ $(document).ready(()=>{ // jQuery main
         again.set({x:canvas.width - again.image.width - 10, y:0});
 
         let score = 2;
-        let scoreChange = false;
         let background = repo.getResult('background');
 
 
@@ -1274,7 +1273,7 @@ $(document).ready(()=>{ // jQuery main
                                 time_loop.setPaused(true);
                                 boy_loop.setPaused(true);
                                 girl_loop.setPaused(true);
-                                pressToNext(score,isWin,scoreChange);
+                                pressToNext(score,isWin);
                         }
                     });
 
@@ -1315,7 +1314,7 @@ $(document).ready(()=>{ // jQuery main
                         stage.removeChild(illu_text);
                         time_loop.setPaused(true);
                         girl_loop.setPaused(true);
-                        pressToNext(score,isWin,scoreChange);
+                        pressToNext(score,isWin);
                     }
                 });
 
@@ -1687,7 +1686,7 @@ $(document).ready(()=>{ // jQuery main
             }
         }
 
-        function pressToNext(score,isWin,scoreChanged) {
+        function pressToNext(score,isWin) {
 
             if(level === 1){}
             else{
@@ -1698,21 +1697,19 @@ $(document).ready(()=>{ // jQuery main
                 text.set({textAlign: 'center', x: 360, y: 500});
                 stage.addChild(text);
             }
-            if (!scoreChanged) {
+            if (score === window.score) {
                 if (!isWin) score--;
                 else score++;
-                scoreChanged = true;
                 if(score < 0) score = 0;
                 if(score > 5) score = 5;
-                window.score = score;
             }
-            console.log(window.score);
-            printScore(window.score);
+            console.log(score);
+            printScore(score);
             window.addEventListener('keydown', function (e) {
                 switch (e.keyCode) {
                     case 13: //enter
+                        window.score = score;
                         win();
-                        scoreChanged = false;
                 }
             });
         }
