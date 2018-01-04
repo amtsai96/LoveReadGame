@@ -89,7 +89,14 @@ $(document).ready(()=>{ // jQuery main
             {id:'stage4_button1',src:'Stage4/images/stage4_button1.png'},
             {id:'stage4_button2',src:'Stage4/images/stage4_button2.png'},
             {id:'stage4_button3',src:'Stage4/images/stage4_button3.png'},
-            {id:'stage4_text',src:'Stage4/images/stage4_text.png'}
+            {id:'stage4_text',src:'Stage4/images/stage4_text.png'},
+
+            // End
+            {id:'play_again',src:'End/images/button_playagain.png'},
+            {id:'cmt_01',src:'End/images/comment_01.png'},
+            {id:'cmt_2',src:'End/images/comment_2.png'},
+            {id:'cmt_3',src:'End/images/comment_3.png'},
+            {id:'cmt_45',src:'End/images/comment_45.png'}
 
         ]);
         repo.on('complete', draw);
@@ -1297,7 +1304,7 @@ $(document).ready(()=>{ // jQuery main
                     stage.addChild(boye[boy_count]);
                 });
 
-                let s2_time = 30;
+                let s2_time = 15;
                 let illu_text = new createjs.Text("按下‘b’鍵打嗝\n" +
                     "還剩 " + s2_time + " 秒", "16px Arial", "#c4322e");
                 illu_text.set({textAlign: 'center', lineHeight:24, x: 160, y: 150});
@@ -1648,15 +1655,51 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(stage4_text);
         }else{
             //end
+            let cmt01 = new createjs.Bitmap(repo.getResult('cmt01'));
+            cmt01.set({x: 150, y: 120});
+            let cmt2 = new createjs.Bitmap(repo.getResult('cmt2'));
+            cmt2.set({x: 150, y: 120});
+            let cmt3 = new createjs.Bitmap(repo.getResult('cmt3'));
+            cmt3.set({x: 150, y: 120});
+            let cmt45 = new createjs.Bitmap(repo.getResult('cmt45'));
+            cmt45.set({x: 150, y: 120});
+            console.log(score);
+            switch(score){
+                case 0:
+                case 1:
+                    stage.addChild(cmt01);
+                    break;
+                case 2:
+                    stage.addChild(cmt2);
+                    break;
+                case 3:
+                    stage.addChild(cmt3);
+                    break;
+                case 4:
+                case 5:
+                    stage.addChild(cmt45);
+                    break;
+            }
+            window.addEventListener('keydown', function (e) {
+                switch (e.keyCode) {
+                    case 27: //esc
+                        //quit
+                        level = 0;
+                        draw();
+                }
+            });
 
         }
 
         function printScore(score) {
             for (let i = 0; i < 6; i++) {
-                if (i < score) stage.addChild(life[i]); // hearts
-                else stage.removeChild(life[i]);
+                if (i < score){
+                    stage.addChild(life[i]);
+                } // hearts
+                else{
+                    stage.removeChild(life[i]);
+                }
             }
-
             stage.addChild(heart_text); // 好感度
         }
 
@@ -1703,9 +1746,6 @@ $(document).ready(()=>{ // jQuery main
         draw();
     }
     function win3() {
-        // let rect = new createjs.Shape();
-        // rect.graphics.beginFill("white").drawRect(0, 0, 720, 720);
-        // stage.addChild(rect);
         stage.removeAllChildren();
         stage.update();
         stage3flag++;
