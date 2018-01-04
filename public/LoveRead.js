@@ -202,7 +202,7 @@ $(document).ready(()=>{ // jQuery main
                     window.playerName = player.value;
                     let other = document.getElementById('otInput');
                     window.otherName = other.value;
-                    alert('你的姓名是: '+playerName+'\n對方的姓名是: '+otherName);
+                    //alert('你的姓名是: '+playerName+'\n對方的姓名是: '+otherName);
                     plName_.remove();
                     otName_.remove();
                     win();
@@ -214,7 +214,7 @@ $(document).ready(()=>{ // jQuery main
             let lineY = 0;
             let rand;
 
-            let winTime = 3500;
+            let winTime = 2000;
             let background = repo.getResult('background');
             let heartbeat = repo.getResult('heartbeat');
             background.play();
@@ -251,6 +251,7 @@ $(document).ready(()=>{ // jQuery main
                     draw();
                 }, 3500);
             } else if (scene === 1) {
+
                 let text = new createjs.Text("請選擇一封", "40px CSong3HK", "black");
                 text.set({x: 300, y: 200});
                 stage.addChild(text);
@@ -272,12 +273,12 @@ $(document).ready(()=>{ // jQuery main
                         //good
                         window.letterQuality = true;
                         // alert(letterQuality);
-                        console.log(window.letterQuality);
+                        //console.log(window.letterQuality);
                     } else {
                         //bad
                         window.letterQuality = false;
                         // alert(letterQuality);
-                        console.log(window.letterQuality);
+                        //console.log(window.letterQuality);
                     }
                     stage.removeChild(text);
                     stage.removeChild(letter);
@@ -291,7 +292,7 @@ $(document).ready(()=>{ // jQuery main
                     if (rand) {
                         //good
                         window.letterQuality = true;
-                        console.log(window.letterQuality);
+                        //console.log(window.letterQuality);
                     } else {
                         //bad
                         window.letterQuality = false;
@@ -300,11 +301,12 @@ $(document).ready(()=>{ // jQuery main
                     stage.removeChild(text);
                     stage.removeChild(letter);
                     stage.removeChild(letter1);
-                    scene++;
+                    scene+=2;
                     draw();
                 });
+
             } else if (scene === 2) {
-                //let text;
+
                 console.log(window.letterQuality);
                 if (window.letterQuality) {
                     let goodLetter = new createjs.Bitmap(repo.getResult('goodLetter'));
@@ -318,10 +320,10 @@ $(document).ready(()=>{ // jQuery main
                     stage.addChild(badLetter);
                 }
                 setTimeout(function () {
-                    stage.removeAllChildren();
-                    scene++;
-                    draw();
-                }, 2000);
+                    //stage.removeAllChildren();
+                    win();
+                }, 5000);
+
             } else if (scene === 3) {
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
                 letter1.set({scaleX: 1.44, scaleY: 1.44});
@@ -690,7 +692,7 @@ $(document).ready(()=>{ // jQuery main
                     createjs.Tween.get(line)
                         .to({y: -374}, 3000)
                         .call(() => {
-                            console.log(vLine);
+                            //console.log(vLine);
                             if (vLine === 1) {
                                 if (window.letterQuality) {
                                     let successBoy = new createjs.Bitmap(repo.getResult('successBoy'));
@@ -720,8 +722,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -735,8 +738,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             }
                         });
 
@@ -858,8 +862,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -873,8 +878,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             }
                         });
                 });
@@ -994,8 +1000,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1009,8 +1016,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             }
                         });
                 });
@@ -1130,8 +1138,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                 failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -1145,8 +1154,9 @@ $(document).ready(()=>{ // jQuery main
                                 heartbeat.pause();
                                 setTimeout(function(){
                                     background.pause();
-                                    win();
-                                }, winTime);
+                                    //win();
+                                    scene = 2;
+                                }, 2000);
                             }
                         });
                 });
@@ -1161,7 +1171,9 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(letter4);
 
                 stage.addChild(stage1);
-                stage.addChild(heartText);
+                //stage.addChild(heartText);
+                window.score = 2;
+                printScore(window.score);
                 stage.addChild(heart);
                 stage.addChild(startGirl);
                 stage.addChild(startBoy);
@@ -1637,12 +1649,15 @@ $(document).ready(()=>{ // jQuery main
         }
 
         function pressToNext(score,isWin,scoreChanged) {
-            let bg = new createjs.Shape();
-            bg.graphics.beginFill('#ffffff').drawRect(0,490,720,100);
-            stage.addChild(bg);
-            let text = new createjs.Text("按下‘enter’鍵前往下一關", "16px Arial", "#c4322e");
-            text.set({textAlign: 'center', x: 360, y: 500});
-            stage.addChild(text);
+            if(level === 1){}
+            else{
+                let bg = new createjs.Shape();
+                bg.graphics.beginFill('#ffffff').drawRect(0,490,720,100);
+                stage.addChild(bg);
+                let text = new createjs.Text("按下‘enter’鍵前往下一關", "16px Arial", "#c4322e");
+                text.set({textAlign: 'center', x: 360, y: 500});
+                stage.addChild(text);
+            }
             if (!scoreChanged) {
                 if (!isWin) score--;
                 else score++;
