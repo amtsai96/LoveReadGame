@@ -27,6 +27,7 @@ $(document).ready(()=>{ // jQuery main
             {id:'startGirl',src:'Stage1/images/gfLetter1.png'},
             {id:'successGirl',src:'Stage1/images/gfLetter2.png'},
             {id:'nothingGirl',src:'Stage1/images/gfLetter3.png'},
+            {id:'failGirl',src:'Stage1/images/gfLetter4.png'},
             {id:'letter',src:'Stage1/images/letter.png'},
             {id:'stage1',src:'Stage1/images/stage1.png'},
             {id:'stage1Text',src:'Stage1/images/stage1_text_.png'},
@@ -112,9 +113,11 @@ $(document).ready(()=>{ // jQuery main
 
         let score = 2;
         let scoreChange = false;
+        let background = repo.getResult('background');
 
         if(level === 0) {
             if (scene === 0) {
+                background.play();
                 // menu
                 let title = new createjs.Bitmap(repo.getResult('title'));
                 // title.set({scaleX: 1.44, scaleY: 1.44});
@@ -214,10 +217,7 @@ $(document).ready(()=>{ // jQuery main
             let lineY = 0;
             let rand;
 
-            let winTime = 2000;
-            let background = repo.getResult('background');
             let heartbeat = repo.getResult('heartbeat');
-            background.play();
 
             if (scene === 0) {
                 // alert(otherName);
@@ -283,7 +283,7 @@ $(document).ready(()=>{ // jQuery main
                     stage.removeChild(text);
                     stage.removeChild(letter);
                     stage.removeChild(letter1);
-                    scene++;
+                    scene+=2;
                     draw();
                 });
 
@@ -306,7 +306,7 @@ $(document).ready(()=>{ // jQuery main
                 });
 
             } else if (scene === 2) {
-
+                stage.removeAllChildren();
                 console.log(window.letterQuality);
                 if (window.letterQuality) {
                     let goodLetter = new createjs.Bitmap(repo.getResult('goodLetter'));
@@ -376,6 +376,10 @@ $(document).ready(()=>{ // jQuery main
                 let nothingGirl = new createjs.Bitmap(repo.getResult('nothingGirl'));
                 nothingGirl.set({scaleX: 1.44, scaleY: 1.44});
                 nothingGirl.set({x: 50.4, y: 590.4});
+
+                let failGirl = new createjs.Bitmap(repo.getResult('failGirl'));
+                failGirl.set({scaleX: 1.44, scaleY: 1.44});
+                failGirl.set({x: 50.4, y: 590.4});
 
                 let hLine1 = [];
                 let hLine2 = [];
@@ -715,15 +719,16 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(playingBoy);
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
-                                    stage.addChild(nothingGirl);
+                                    stage.addChild(failGirl);
                                     stage.removeChild(heart);
                                     pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
@@ -737,9 +742,10 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             }
                         });
@@ -855,15 +861,16 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(playingBoy);
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
-                                    stage.addChild(nothingGirl);
+                                    stage.addChild(failGirl);
                                     stage.removeChild(heart);
                                     pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
@@ -877,9 +884,10 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             }
                         });
@@ -993,15 +1001,16 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(playingBoy);
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
-                                    stage.addChild(nothingGirl);
+                                    stage.addChild(failGirl);
                                     stage.removeChild(heart);
                                     pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
@@ -1015,9 +1024,10 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             }
                         });
@@ -1131,15 +1141,16 @@ $(document).ready(()=>{ // jQuery main
                                     stage.removeChild(playingBoy);
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
-                                    stage.addChild(nothingGirl);
+                                    stage.addChild(failGirl);
                                     stage.removeChild(heart);
                                     pressToNext(score,false,scoreChange);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             } else {
                                 let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
@@ -1153,9 +1164,10 @@ $(document).ready(()=>{ // jQuery main
                                 stage.addChild(nothingGirl);
                                 heartbeat.pause();
                                 setTimeout(function(){
-                                    background.pause();
+                                    //background.pause();
                                     //win();
                                     scene = 2;
+                                    draw();
                                 }, 2000);
                             }
                         });
