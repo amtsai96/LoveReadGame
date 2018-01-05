@@ -2,7 +2,7 @@ $(document).ready(()=>{ // jQuery main
 
     const stage = new createjs.Stage(canvas);
     const repo = new createjs.LoadQueue();
-    let level = 0;
+    let level = 2;
     let scene = 0;
 
     function setup() {
@@ -102,22 +102,24 @@ $(document).ready(()=>{ // jQuery main
 
         if (window.otherName == null) window.otherName = 'Test';
 
+        /* score initialization */
+        let score = 2;
         let life = [];
         for (let i = 0; i < 6; i++) {
             life[i] = new createjs.Bitmap(repo.getResult('life'));
             life[i].set({x: canvas.width - life[i].image.width * 1.1 * (6 - i), y: 10});
         }
-
         let heart_text = new createjs.Bitmap(repo.getResult('heart_text'));
         heart_text.set({
             x: canvas.width - heart_text.image.width * 1.35 - 55 * 6, y: -5,
             scaleX: 1.35, scaleY: 1.35
         });
 
+        let isFirst = true; // for Stage 2
+
         let again = new createjs.Bitmap(repo.getResult('again'));
         again.set({x:canvas.width - again.image.width - 10, y:0});
 
-        let score = 2;
         let background = repo.getResult('background');
 
 
@@ -1196,8 +1198,8 @@ $(document).ready(()=>{ // jQuery main
                 s2.set({y: 3, scaleX: 1.44, scaleY: 1.44});
                 stage.addChild(s2); // ＳＴＡＧＥ ２
 
-                console.log(window.score);
-                printScore(window.score);
+                console.log(score);
+                printScore(score);
 
                 let girle = [new createjs.Bitmap(repo.getResult('girle1')),
                     new createjs.Bitmap(repo.getResult('girle2'))];
@@ -1249,7 +1251,8 @@ $(document).ready(()=>{ // jQuery main
                 let boy_loop = createjs.Tween.get(boye, {loop: true}).wait(700).call(function () {
                     stage.removeChild(boye[boy_count]);
 
-                    window.addEventListener('keydown', function (e) {
+                    window.addEventListener('keyup', s2_burp);
+                    function s2_burp(e) {
                         switch (e.keyCode) {
                             case 66: //space
                                 stage.removeChild(boye[boy_count]);
@@ -1273,10 +1276,13 @@ $(document).ready(()=>{ // jQuery main
                                 time_loop.setPaused(true);
                                 boy_loop.setPaused(true);
                                 girl_loop.setPaused(true);
-                                pressToNext(window.score,isWin,2);
+                                pressToNext(score,isWin,2);
+                                isFirst = false;
+                                break;
+                            case 13: //enter
+                                window.removeEventListener('keyup', s2_burp);
                         }
-                    });
-
+                    }
                     boy_count = (boy_count + 1) % 5;
                     stage.addChild(boye[boy_count]);
                 });
@@ -1314,7 +1320,8 @@ $(document).ready(()=>{ // jQuery main
                         stage.removeChild(illu_text);
                         time_loop.setPaused(true);
                         girl_loop.setPaused(true);
-                        pressToNext(window.score,isWin,2);
+                        pressToNext(score,isWin,2);
+                        isFirst = false;
                     }
                 });
 
@@ -1322,6 +1329,7 @@ $(document).ready(()=>{ // jQuery main
             stage.addChild(s2_text);
 
         }else if(level === 3) {
+            isFirst = true; // 讓Stage2的win不會重複跑
 
             console.log("level : " +level);
             stage.removeAllChildren();
@@ -1685,7 +1693,7 @@ $(document).ready(()=>{ // jQuery main
             }
         }
 
-        function pressToNext(score,isWin,stagetest) {
+        function pressToNext(tmpScore,isWin,stagetest) {
 
             if(level === 1){}
             else{
@@ -1696,22 +1704,29 @@ $(document).ready(()=>{ // jQuery main
                 text.set({textAlign: 'center', x: 360, y: 500});
                 stage.addChild(text);
             }
-            if (score === window.score) {
-                if (!isWin) score--;
-                else score++;
-                if(score < 0) score = 0;
-                if(score > 5) score = 5;
+            if (tmpScore === score) {
+                if (!isWin) tmpScore--;
+                else tmpScore++;
+                if(tmpScore < 0) tmpScore = 0;
+                if(tmpScore > 5) tmpScore = 5;
             }
-            console.log(score);
+            console.log(tmpScore);
             console.log("stagepress:"+stagetest);
-            printScore(score);
-            window.addEventListener('keydown', function (e) {
-                switch (e.keyCode) {
-                    case 13: //enter
-                        window.score = score;
-                        win(stagetest);
+            printScore(tmpScore);
+            console.log("isFirst: "+isFirst);
+            if (isFirst) {
+                window.addEventListener('keyup', next);
+                function next(e) {
+                    console.log(e);
+                    switch (e.keyCode) {
+                        case 13: //enter
+                            score = tmpScore ;
+                            win(stagetest);
+                            window.removeEventListener('keyup', next);
+                    }
                 }
-            });
+
+            }
         }
 
         function reset(reset_level,reset_scene){
@@ -1723,6 +1738,10 @@ $(document).ready(()=>{ // jQuery main
             console.log(level,window.score);
             draw();
         }
+
+        setInterval(function () {
+            console.log("isFirst: "+isFirst);
+        },1000);
 
     }
 
