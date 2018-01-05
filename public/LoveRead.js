@@ -4,7 +4,7 @@ $(document).ready(()=>{ // jQuery main
     const repo = new createjs.LoadQueue();
     let level = 0;
     let scene = 0;
-
+    let test3 = 0;
     function setup() {
         // automatically update
         createjs.Ticker.on("tick", e => stage.update());
@@ -1330,7 +1330,7 @@ $(document).ready(()=>{ // jQuery main
 
         }else if(level === 3) {
             isFirst = true; // 讓Stage2的win不會重複跑
-
+            test3 = 0;
             console.log("level : " +level);
             stage.removeAllChildren();
             let carRoad = repo.getResult('carRoad');
@@ -1423,6 +1423,7 @@ $(document).ready(()=>{ // jQuery main
                                 //cars stop
                                 for (var i = 0; i < 6; i++) {
                                     createjs.Tween.get(cars[i], {loop: false}).to({x: cars[i].x, y: cars[i].y});
+                                    cars[i].set({x: -360, y: 50});
                                 }
                             }
                             else {
@@ -1526,8 +1527,16 @@ $(document).ready(()=>{ // jQuery main
                     }
                     if(flag===4){
                         window.setTimeout(function () {
+                            console.log("test3winbefore: " +test3);
                             console.log("levelwinbefore: " +level);
+                            test3 = 1;
                             pressToNext(window.score,isWin,3);
+                            for(var i=0;i<people.length;i++){
+                                people[i].set({x: 360, y: 50});
+                                stage.removeChild(people[i]);
+                            }
+                            stage.update();
+                            console.log("test3winafter: " +test3);
                             console.log("levelwinafter: " +level);
                         }, 1000);
                         clearInterval(check);
@@ -1552,7 +1561,6 @@ $(document).ready(()=>{ // jQuery main
                                         people[3].set({x: 360, y: 50});
                                         people[4].set({x: 360, y: 50});
                                         people[5].set({x: 360, y: 50});
-
                                     }).wait(250).call(() => stage.removeChild(blood));
                             }
                         }
@@ -1560,7 +1568,7 @@ $(document).ready(()=>{ // jQuery main
                 }, 0);
 
             });
-        }else if(level === 4) {
+        }else if(level === 4&&test3===1) {
             //level 4
             let stage4 = new createjs.Bitmap(repo.getResult('stage4'));
             let stage4_text = new createjs.Bitmap(repo.getResult('stage4_text'));
@@ -1713,7 +1721,7 @@ $(document).ready(()=>{ // jQuery main
             console.log(tmpScore);
             console.log("stagepress:"+stagetest);
             printScore(tmpScore);
-            console.log("isFirst: "+isFirst);
+         //   console.log("isFirst: "+isFirst);
             if (isFirst) {
                 window.addEventListener('keyup', next);
                 function next(e) {
@@ -1740,7 +1748,7 @@ $(document).ready(()=>{ // jQuery main
         }
 
         setInterval(function () {
-            console.log("isFirst: "+isFirst);
+         //   console.log("isFirst: "+isFirst);
         },1000);
 
     }
