@@ -1239,34 +1239,32 @@ $(document).ready(()=>{ // jQuery main
 
                     window.addEventListener('keyup', s2_burp);
                     function s2_burp(e) {
-                        switch (e.keyCode) {
-                            case 66: //space
-                                stage.removeChild(boye[boy_count]);
-                                stage.addChild(boyb[boy_count]);
-                                stage.addChild(burp);
-                                repo.getResult('burp_sound').play();
-                                burp_count += 1;
-                                if (boy_count == 0 || boy_count == 1 || burp_count >= 10) {
-                                    isWin = false;
-                                    stage.removeChild(girle[girl_count]);
-                                    girl_loop.setPaused(true);
-                                    stage.removeChild(girlm[1]);
-                                    stage.addChild(girlm[0]);
-                                    girl_loop = createjs.Tween.get(girlm).wait(800).call(function () {
-                                        stage.removeChild(girlm[0]);
-                                        stage.addChild(girlm[1]);
-                                    });
-                                    stage.addChild(rude);
-                                }
-                                stage.removeChild(illu_text);
-                                time_loop.setPaused(true);
-                                boy_loop.setPaused(true);
+                        if (e.keyCode === 66) {//space
+                            stage.removeChild(boye[boy_count]);
+                            stage.addChild(boyb[boy_count]);
+                            stage.addChild(burp);
+                            repo.getResult('burp_sound').play();
+                            burp_count += 1;
+                            if (boy_count == 0 || boy_count == 1 || burp_count >= 10) {
+                                isWin = false;
+                                stage.removeChild(girle[girl_count]);
                                 girl_loop.setPaused(true);
-                                pressToNext(score,isWin,2);
-                                isFirst = false;
-                                break;
-                            case 13: //enter
-                                window.removeEventListener('keyup', s2_burp);
+                                stage.removeChild(girlm[1]);
+                                stage.addChild(girlm[0]);
+                                girl_loop = createjs.Tween.get(girlm).wait(800).call(function () {
+                                    stage.removeChild(girlm[0]);
+                                    stage.addChild(girlm[1]);
+                                });
+                                stage.addChild(rude);
+                            }
+                            stage.removeChild(illu_text);
+                            time_loop.setPaused(true);
+                            boy_loop.setPaused(true);
+                            girl_loop.setPaused(true);
+                            pressToNext(score, isWin, 2);
+                            isFirst = false;
+                        } else if (e.keyCode === 13) {//enter
+                            window.removeEventListener('keyup', s2_burp);
                         }
                     }
                     boy_count = (boy_count + 1) % 5;
@@ -1696,8 +1694,8 @@ $(document).ready(()=>{ // jQuery main
             score = score + plus;
         }
 
+        let tmp = 2;
         function pressToNext(tmpScore,isWin,stagetest) {
-
             if(level === 1){}
             else{
                 let bg = new createjs.Shape();
@@ -1712,8 +1710,9 @@ $(document).ready(()=>{ // jQuery main
                 else tmpScore++;
                 if(tmpScore < 0) tmpScore = 0;
                 if(tmpScore > 5) tmpScore = 5;
+                tmp = tmpScore;
             }
-            console.log('Press to next_'+tmpScore);
+            console.log('Press to next_'+tmp);
             console.log("stagepress:"+stagetest);
             printScore(tmpScore);
          //   console.log("isFirst: "+isFirst);
@@ -1721,11 +1720,10 @@ $(document).ready(()=>{ // jQuery main
                 window.addEventListener('keyup', next);
                 function next(e) {
                     console.log(e);
-                    switch (e.keyCode) {
-                        case 13: //enter
-                            score = tmpScore ;
-                            win(stagetest);
-                            window.removeEventListener('keyup', next);
+                    if (e.keyCode === 13) {//enter
+                        score = tmp;
+                        win(stagetest);
+                        window.removeEventListener('keyup', next);
                     }
                 }
 
