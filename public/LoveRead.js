@@ -128,7 +128,7 @@ $(document).ready(()=>{ // jQuery main
         if(level === 0) {
             if (scene === 0) {
 //remember to play bg
-                // background.play();
+                background.play();
 
                 // menu
                 let title = new createjs.Bitmap(repo.getResult('title'));
@@ -1566,6 +1566,7 @@ $(document).ready(()=>{ // jQuery main
             stage4_button3.set({x: 400, y: 400});
 
             stage4_button1.on('click', e => {
+                background.pause();
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
@@ -1586,6 +1587,7 @@ $(document).ready(()=>{ // jQuery main
             });
             stage4_button2.on('click', e => {
                 // the correct one
+                background.pause();
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
@@ -1605,6 +1607,7 @@ $(document).ready(()=>{ // jQuery main
 
             });
             stage4_button3.on('click', e => {
+                background.pause();
                 stage.removeChild(stage4_button3);
                 stage.removeChild(stage4_button2);
                 stage.removeChild(stage4_button1);
