@@ -1320,6 +1320,7 @@ $(document).ready(()=>{ // jQuery main
             let carRoad = repo.getResult('carRoad');
             let clapping = repo.getResult('clapping');
             let crow = repo.getResult('crow');
+            let Hitcount=0;
             let s3_text = new createjs.Text(
                 "吃 完 飯 後 ， 你 帶 "+otherName+"  去 散 散 步 \n" +
                 "請 小 心 來 車 ， 安 全 橫 越 大 馬 路\n" , "40px CSong3HK", "#000000");
@@ -1337,7 +1338,6 @@ $(document).ready(()=>{ // jQuery main
                 printScore(score);
 
                 stage.addChild(heart_text); // 好感度
-
                 carRoad.play();
                 let flag = 1;
                 //動作宣告
@@ -1412,11 +1412,11 @@ $(document).ready(()=>{ // jQuery main
                             else {
                                 createjs.Tween.get(cars[0], {loop: true}).to({x: 720, y: 170}, 3500);
                                 createjs.Tween.get(cars[1], {loop: true}).to({x: 0, y: 350}, 4000);
-                                createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 3500);
-                                createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 2500);
-                                createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 2500);
+                                createjs.Tween.get(cars[2], {loop: true}).to({x: 0, y: 270}, 7000);
+                                createjs.Tween.get(cars[3], {loop: true}).to({x: 0, y: 400}, 5000);
+                                createjs.Tween.get(cars[4], {loop: true}).to({x: 0, y: 500}, 4500);
                                 createjs.Tween.get(cars[5], {loop: true}).to({x: 720, y: 220}, 3000);
-                                createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 3000);
+                                createjs.Tween.get(cars[6], {loop: true}).to({x: 720, y: 450}, 4000);
                             }
 
                         case 37:
@@ -1448,8 +1448,7 @@ $(document).ready(()=>{ // jQuery main
                                 people[i].y += 10;
                                 if (people[i].y >= 550) {
                                     // Win
-                                    carRoad.pause();
-                                    clapping.play();
+
                                     flag = 3;
                                 }
                                 if (people[i].y >= 660) {
@@ -1506,6 +1505,8 @@ $(document).ready(()=>{ // jQuery main
                         window.setTimeout(function () {
                             stage.removeChild(people[5]);
                         }, 1000);
+                        carRoad.pause();
+                        clapping.play();
                         flag=4;
                     }
                     if(flag===4){
@@ -1513,7 +1514,12 @@ $(document).ready(()=>{ // jQuery main
                             // console.log("test3winbefore: " +test3);
                             // console.log("levelwinbefore: " +level);
                             test3 = 1;
-                            pressToNext(score,true,3);
+                            clearInterval(ishit);
+                            if(Hitcount===0) {
+                                pressToNext(score, true, 3);
+                            }else{
+                                pressToNext(score, false, 3);
+                            }
                             for(var i=0;i<people.length;i++){
                                 people[i].set({x: 360, y: 50});
                                 stage.removeChild(people[i]);
@@ -1527,15 +1533,15 @@ $(document).ready(()=>{ // jQuery main
                 }, 1000);
 
                 //判斷有沒有撞到車子
-                window.setInterval(function HitTest() {
-                    for (var i = 0; i < 7; i++) {
+                var ishit = window.setInterval(function HitTest() {
+                     for (var i = 0; i < 7; i++) {
                         for (var j = 0; j < 6; j++) {
                             if (isHit(people[j].x, people[j].y, 49, 60, cars[i].x, cars[i].y,
                                     carsWidthLength[i][0], carsWidthLength[i][1]) == true) {
                                 createjs.Tween.get(blood)
                                     .call(() => {
                                         crow.play();
-
+                                        Hitcount++;
                                         blood.set({x: people[2].x, y: people[2].y});
                                         stage.addChild(blood);
                                         people[0].set({x: 360, y: 50});
@@ -1690,6 +1696,7 @@ $(document).ready(()=>{ // jQuery main
             }
         }
 
+
         function changeScore(plus) {
             score = score + plus;
         }
@@ -1715,7 +1722,7 @@ $(document).ready(()=>{ // jQuery main
             console.log('Press to next_'+tmp);
             console.log("stagepress:"+stagetest);
             printScore(tmpScore);
-         //   console.log("isFirst: "+isFirst);
+         //   c onsole.log("isFirst: "+isFirst);
             if (isFirst) {
                 window.addEventListener('keyup', next);
                 function next(e) {
