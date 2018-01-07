@@ -684,7 +684,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successGirl);
                                     changeScore(1);
                                     printScore(score);
-                                    // pressToNext(score,true,1);
                                 } else {
                                     let failBoy = new createjs.Bitmap(repo.getResult('failBoy'));
                                     failBoy.set({scaleX: 1.44, scaleY: 1.44});
@@ -697,7 +696,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failGirl);
                                     changeScore(-1);
                                     printScore(score);
-                                    // pressToNext(score,false,1);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -841,7 +839,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failGirl);
                                     changeScore(-1);
                                     printScore(score);
-                                    // pressToNext(score,false,1);
                                 }
                                 heartbeat.pause();
                                 setTimeout(function(){
@@ -968,7 +965,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(successBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(successGirl);
-                                    // pressToNext(score,true,1);
                                     changeScore(1);
                                     printScore(score);
                                 } else {
@@ -981,7 +977,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    // pressToNext(score,false,1);
                                     changeScore(-1);
                                     printScore(score);
                                 }
@@ -1584,7 +1579,7 @@ $(document).ready(()=>{ // jQuery main
                 setTimeout(function () {
                     fire_.remove();
                     win(4);
-                    score--;
+                    changeScore(-1);
                     printScore(score);
                 }, 20000);
 
@@ -1605,7 +1600,7 @@ $(document).ready(()=>{ // jQuery main
                 setTimeout(function () {
                     sea_.remove();
                     win(4);
-                    score++;
+                    changeScore(1);
                     printScore(score);
                 }, 21000);
 
@@ -1623,7 +1618,7 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(home);
                 setTimeout(function () {
                     home_.remove();
-                    score--;
+                    changeScore(-1);
                     win(4);
                     printScore(score);
                 }, 17000);
@@ -1699,6 +1694,8 @@ $(document).ready(()=>{ // jQuery main
 
         function changeScore(plus) {
             score = score + plus;
+            if(score < 0) score = 0;
+            if(score > 5) score = 5;
         }
 
         let tmp = 2;
