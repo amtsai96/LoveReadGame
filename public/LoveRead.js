@@ -258,7 +258,7 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(letter);
 
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
-                letter1.set({x: canvas.width-letter1.image.width*2.2 - 160, y: 320});
+                letter1.set({x: canvas.width-letter1.image.width - 160, y: 320});
                 stage.addChild(letter1);
 
                 letter.on('click', e => {
