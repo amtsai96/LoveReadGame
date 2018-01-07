@@ -1662,6 +1662,10 @@ $(document).ready(()=>{ // jQuery main
                 console.log('Score:'+score);
 
                 switch(score){
+                    case -4:
+                    case -3:
+                    case -2:
+                    case -1:
                     case 0:
                     case 1:
                         stage.addChild(cmt01);
@@ -1674,6 +1678,7 @@ $(document).ready(()=>{ // jQuery main
                         break;
                     case 4:
                     case 5:
+                    case 6:
                         stage.addChild(cmt45);
                         break;
                 }
