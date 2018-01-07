@@ -254,13 +254,11 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(text);
 
                 let letter = new createjs.Bitmap(repo.getResult('letter'));
-                letter.set({scaleX: 2.2, scaleY: 2.2});
                 letter.set({x: 185, y: 320});
                 stage.addChild(letter);
 
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
-                letter1.set({scaleX: 2.2, scaleY: 2.2});
-                letter1.set({x: canvas.width-letter1.image.width*2.2 - 160, y: 320});
+                letter1.set({x: canvas.width-letter1.image.width - 160, y: 320});
                 stage.addChild(letter1);
 
                 letter.on('click', e => {
@@ -312,19 +310,19 @@ $(document).ready(()=>{ // jQuery main
 
             } else if (scene === 3) {
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
-                letter1.set({scaleX: 1.44, scaleY: 1.44});
+                letter1.set({scaleX: 0.65, scaleY: 0.65});
                 letter1.set({x: 122.4, y: 316.8});
 
                 let letter2 = new createjs.Bitmap(repo.getResult('letter'));
-                letter2.set({scaleX: 1.44, scaleY: 1.44});
+                letter2.set({scaleX: 0.65, scaleY: 0.65});
                 letter2.set({x: 266.4, y: 316.8});
 
                 let letter3 = new createjs.Bitmap(repo.getResult('letter'));
-                letter3.set({scaleX: 1.44, scaleY: 1.44});
+                letter3.set({scaleX: 0.65, scaleY: 0.65});
                 letter3.set({x: 410.4, y: 316.8});
 
                 let letter4 = new createjs.Bitmap(repo.getResult('letter'));
-                letter4.set({scaleX: 1.44, scaleY: 1.44});
+                letter4.set({scaleX: 0.65, scaleY: 0.65});
                 letter4.set({x: 554.4, y: 316.8});
 
                 let stage1 = new createjs.Bitmap(repo.getResult('stage1'));
@@ -1184,7 +1182,7 @@ $(document).ready(()=>{ // jQuery main
                 let girle = [new createjs.Bitmap(repo.getResult('girle1')),
                     new createjs.Bitmap(repo.getResult('girle2'))];
                 for (let girl of girle) {
-                    girl.set({x: 500, y: 250, scaleX: 1.5, scaleY: 1.5});
+                    girl.set({x: 480, y: 300, scaleX: 1.5, scaleY: 1.5});
                 }
 
                 let girl_count = 0;
@@ -1198,14 +1196,14 @@ $(document).ready(()=>{ // jQuery main
                 let girlm = [new createjs.Bitmap(repo.getResult('girlm1')),
                     new createjs.Bitmap(repo.getResult('girlm2'))];
                 for (let girl of girlm) {
-                    girl.set({x: 500, y: 250, scaleX: 1.5, scaleY: 1.5});
+                    girl.set({x: 480, y: 300, scaleX: 1.5, scaleY: 1.5});
                 }
 
                 let rude = new createjs.Bitmap(repo.getResult('rude'));
-                rude.set({x: 510, y: 120, scaleX: 2, scaleY: 2});
+                rude.set({x: 490, y: 170, scaleX: 2, scaleY: 2});
 
                 let burp = new createjs.Bitmap(repo.getResult('burp'));
-                burp.set({x: 240, y: 280, scaleX: 1.5, scaleY: 1.5});
+                burp.set({x: 220, y: 320, scaleX: 1.5, scaleY: 1.5});
 
                 let boye = [new createjs.Bitmap(repo.getResult('boye1')),
                     new createjs.Bitmap(repo.getResult('boye2')),
@@ -1213,7 +1211,7 @@ $(document).ready(()=>{ // jQuery main
                     new createjs.Bitmap(repo.getResult('boye4')),
                     new createjs.Bitmap(repo.getResult('boye5'))];
                 for (let boy of boye) {
-                    boy.set({scaleX: 1.5, scaleY: 1.5, regY: boy.image.height, x: 100, y: 460});
+                    boy.set({scaleX: 1.5, scaleY: 1.5, regY: boy.image.height, x: 80, y: 510});
                 }
 
                 let boyb = [new createjs.Bitmap(repo.getResult('boyb1')),
@@ -1222,7 +1220,7 @@ $(document).ready(()=>{ // jQuery main
                     new createjs.Bitmap(repo.getResult('boyb4')),
                     new createjs.Bitmap(repo.getResult('boye5'))];
                 for (let boy of boyb) {
-                    boy.set({scaleX: 1.5, scaleY: 1.5, regY: boy.image.height, x: 100, y: 460});
+                    boy.set({scaleX: 1.5, scaleY: 1.5, regY: boy.image.height, x: 80, y: 510});
                 }
 
                 let boy_count = 0;
@@ -1268,7 +1266,7 @@ $(document).ready(()=>{ // jQuery main
                 let s2_time = 15;
                 let illu_text = new createjs.Text("按下‘b’鍵打嗝\n" +
                     "還剩 " + s2_time + " 秒", "16px Arial", "#c4322e");
-                illu_text.set({textAlign: 'center', lineHeight:24, x: 160, y: 150});
+                illu_text.set({textAlign: 'center', lineHeight:24, x: 140, y: 200});
                 stage.addChild(illu_text);
 
                 time_loop = createjs.Tween.get(illu_text, {loop: true}).wait(1000).call(function () {
@@ -1658,6 +1656,10 @@ $(document).ready(()=>{ // jQuery main
                 console.log('Score:'+score);
 
                 switch(score){
+                    case -4:
+                    case -3:
+                    case -2:
+                    case -1:
                     case 0:
                     case 1:
                         stage.addChild(cmt01);
@@ -1670,6 +1672,7 @@ $(document).ready(()=>{ // jQuery main
                         break;
                     case 4:
                     case 5:
+                    case 6:
                         stage.addChild(cmt45);
                         break;
                 }
@@ -1702,10 +1705,10 @@ $(document).ready(()=>{ // jQuery main
             if(level === 1){}
             else{
                 let bg = new createjs.Shape();
-                bg.graphics.beginFill('#ffffff').drawRect(0,490,720,100);
+                bg.graphics.beginFill('#ffffff').drawRect(0,540,720,100);
                 stage.addChild(bg);
                 let text = new createjs.Text("按下‘enter’鍵前往下一關", "16px Arial", "#c4322e");
-                text.set({textAlign: 'center', x: 360, y: 500});
+                text.set({textAlign: 'center', x: 360, y: 550});
                 stage.addChild(text);
             }
             if (tmpScore === score) {
