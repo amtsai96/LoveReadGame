@@ -254,12 +254,10 @@ $(document).ready(()=>{ // jQuery main
                 stage.addChild(text);
 
                 let letter = new createjs.Bitmap(repo.getResult('letter'));
-                letter.set({scaleX: 2.2, scaleY: 2.2});
                 letter.set({x: 185, y: 320});
                 stage.addChild(letter);
 
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
-                letter1.set({scaleX: 2.2, scaleY: 2.2});
                 letter1.set({x: canvas.width-letter1.image.width*2.2 - 160, y: 320});
                 stage.addChild(letter1);
 
@@ -312,19 +310,19 @@ $(document).ready(()=>{ // jQuery main
 
             } else if (scene === 3) {
                 let letter1 = new createjs.Bitmap(repo.getResult('letter'));
-                letter1.set({scaleX: 1.44, scaleY: 1.44});
+                letter1.set({scaleX: 0.65, scaleY: 0.65});
                 letter1.set({x: 122.4, y: 316.8});
 
                 let letter2 = new createjs.Bitmap(repo.getResult('letter'));
-                letter2.set({scaleX: 1.44, scaleY: 1.44});
+                letter2.set({scaleX: 0.65, scaleY: 0.65});
                 letter2.set({x: 266.4, y: 316.8});
 
                 let letter3 = new createjs.Bitmap(repo.getResult('letter'));
-                letter3.set({scaleX: 1.44, scaleY: 1.44});
+                letter3.set({scaleX: 0.65, scaleY: 0.65});
                 letter3.set({x: 410.4, y: 316.8});
 
                 let letter4 = new createjs.Bitmap(repo.getResult('letter'));
-                letter4.set({scaleX: 1.44, scaleY: 1.44});
+                letter4.set({scaleX: 0.65, scaleY: 0.65});
                 letter4.set({x: 554.4, y: 316.8});
 
                 let stage1 = new createjs.Bitmap(repo.getResult('stage1'));
