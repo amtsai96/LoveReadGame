@@ -1114,7 +1114,6 @@ $(document).ready(()=>{ // jQuery main
                                     stage.addChild(failBoy);
                                     stage.removeChild(startGirl);
                                     stage.addChild(failGirl);
-                                    // pressToNext(score,false,1);
                                     changeScore(-1);
                                     printScore(score);
                                 }
@@ -1695,7 +1694,7 @@ $(document).ready(()=>{ // jQuery main
         function changeScore(plus) {
             score = score + plus;
             if(score < 0) score = 0;
-            if(score > 5) score = 5;
+            if(score > 6) score = 6;
         }
 
         let tmp = 2;
@@ -1713,7 +1712,7 @@ $(document).ready(()=>{ // jQuery main
                 if (!isWin) tmpScore--;
                 else tmpScore++;
                 if(tmpScore < 0) tmpScore = 0;
-                if(tmpScore > 5) tmpScore = 5;
+                if(tmpScore > 6) tmpScore = 6;
                 tmp = tmpScore;
             }
             console.log('Press to next_'+tmp);
